@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type OptionType = "eat" | "drink" | null;
 
@@ -65,8 +65,8 @@ function App() {
     setShowSelect(false);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async () => {
+    // e.preventDefault();
     if (option === "drink") {
       const newDrink = getDrink(randomInput);
       console.log({ newDrink });
@@ -79,10 +79,15 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    // setOption("drink");
+    // onChageOption();
+  }, []);
+
   return (
     <>
       <main className="flex-1 flex flex-col items-center justify-center">
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={onSubmit} action={`./${randomInput}`}>
           <div>
             I want to{" "}
             {!showSelect && (

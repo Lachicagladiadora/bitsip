@@ -82,22 +82,29 @@ function App() {
   };
 
   useEffect(() => {
-    // setOption("drink");
     FIRST_OPTION();
-    // onChageOption();
   }, []);
 
   return (
     <>
-      <main className="flex-1 flex flex-col items-center justify-center">
-        <form onSubmit={onSubmit} action={`./${randomInput}`}>
-          <div>
+      <main className="w-full flex-1 flex flex-col items-center justify-center">
+        <form
+          onSubmit={onSubmit}
+          action={`./${randomInput}`}
+          className="flex flex-col gap-3 items-center justify-center"
+        >
+          <div className="text-xl">
             I want to{" "}
             {!showSelect && (
-              <button type="button" onClick={() => setShowSelect(!showSelect)}>
+              <button
+                type="button"
+                onClick={() => setShowSelect(!showSelect)}
+                className="font-bold"
+              >
                 {option ? `${option}` : "drink"}
               </button>
             )}
+            {" ..."}
             {showSelect && (
               <select
                 name="options"
@@ -105,6 +112,7 @@ function App() {
                 autoFocus
                 title="select an option"
                 onChange={(e) => onChageOption(e)}
+                className="focus-within:outline-none py-2 px-2 rounded-md focus:bg-violet-300"
               >
                 <option value="select option">select option</option>
                 <option value="eat"> eat</option>
@@ -116,6 +124,7 @@ function App() {
             <input
               value={randomInput}
               onChange={(e) => setRandomInput(e.target.value)}
+              className="py-2 px-4 rounded-md focus-within:outline-none text-xl bg-[#E7D000] text-zinc-400 focus:text-black focus:bg-zinc-100"
             />
           )}
         </form>

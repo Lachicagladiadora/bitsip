@@ -9,7 +9,6 @@ const randomInputEat = async () => {
 
   const randomMeal = await random.json();
   const data = randomMeal["meals"][0];
-  // console.log(randomMeal["strMeal"]);
   console.log({ randomMeal: data });
 
   return data;
@@ -20,7 +19,6 @@ const randomInputDrink = async () => {
     "https://www.thecocktaildb.com/api/json/v1/1/random.php"
   );
   const randomDrink = await random.json();
-  // console.log({ randomBeer });
   const data = randomDrink["drinks"][0];
   console.log({ randomDrink: data });
 
@@ -66,7 +64,6 @@ function App() {
   };
 
   const onSubmit = async () => {
-    // e.preventDefault();
     if (option === "drink") {
       const newDrink = getDrink(randomInput);
       console.log({ newDrink });
@@ -79,8 +76,14 @@ function App() {
     }
   };
 
+  const FIRST_OPTION = async () => {
+    const data = await randomInputDrink();
+    return setRandomInput(data["strDrink"]);
+  };
+
   useEffect(() => {
     // setOption("drink");
+    FIRST_OPTION();
     // onChageOption();
   }, []);
 
@@ -104,16 +107,8 @@ function App() {
                 onChange={(e) => onChageOption(e)}
               >
                 <option value="select option">select option</option>
-                <option value="eat">
-                  {" "}
-                  eat
-                  {/* <a href="/eat/">eat</a> */}
-                </option>
-                <option value="drink">
-                  {" "}
-                  drink
-                  {/* <a href="/drink/">drink</a> */}
-                </option>
+                <option value="eat"> eat</option>
+                <option value="drink"> drink</option>
               </select>
             )}
           </div>

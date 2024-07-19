@@ -104,7 +104,6 @@ function App() {
                 {option ? `${option}` : "drink"}
               </button>
             )}
-            {" ..."}
             {showSelect && (
               <select
                 name="options"
@@ -112,7 +111,7 @@ function App() {
                 autoFocus
                 title="select an option"
                 onChange={(e) => onChageOption(e)}
-                className="focus-within:outline-none py-2 px-2 rounded-md focus:bg-violet-300"
+                className="focus-within:outline-none py-2 px-2 rounded-md mr-4 text-gray-400 focus:font-bold focus:text-black"
               >
                 <option value="select option">select option</option>
                 <option value="eat"> eat</option>
@@ -124,7 +123,7 @@ function App() {
             <input
               value={randomInput}
               onChange={(e) => setRandomInput(e.target.value)}
-              className="py-2 px-4 rounded-md focus-within:outline-none text-xl bg-[#E7D000] text-zinc-400 focus:text-black focus:bg-zinc-100"
+              className="py-2 px-4 rounded-md text-xl bg-[#E7D000] text-zinc-400 text-center focus-within:outline-none focus:text-start focus:text-black focus:bg-zinc-100"
             />
           )}
         </form>

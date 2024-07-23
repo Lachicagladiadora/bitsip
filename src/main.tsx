@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from "./ErrorPage.tsx";
+import { Drink } from "./pages/Drink.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:strMeal",
-    element: <p>meal</p>,
+    element: <Drink drinkName="margarita" />,
   },
 ]);
 

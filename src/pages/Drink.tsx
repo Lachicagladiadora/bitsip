@@ -19,7 +19,6 @@ export const Drink = ({ drinkName }: DrinkProps) => {
     if (!drinkName) return;
     const data: DrinkType = await getDrink(drinkName);
     console.log({ data });
-    // const drinkRecipe = data;
     setRecipe(data);
   };
 

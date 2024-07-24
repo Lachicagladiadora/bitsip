@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { DrinkData, DrinkType } from "../types";
+import { DrinkData, DrinkType, OptionType } from "../types";
 
-type DrinkProps = { drinkName: string };
+type DrinkProps = { drinkName: OptionType };
 
 const getDrink = async (name: string) => {
   const newDrink = await fetch(
@@ -12,10 +12,11 @@ const getDrink = async (name: string) => {
   return drink["drinks"][0];
 };
 
-export const Drink = ({ drinkName = "margarita" }: DrinkProps) => {
+export const Drink = ({ drinkName }: DrinkProps) => {
   const [recipe, setRecipe] = useState<DrinkType | null>(null);
 
   const drinkRecipe = async () => {
+    if (!drinkName) return;
     const data: DrinkType = await getDrink(drinkName);
     console.log({ data });
     // const drinkRecipe = data;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-type OptionType = "eat" | "drink" | null;
+import { OptionType } from "./types";
 
 const randomInputEat = async () => {
   const random = await fetch(
@@ -43,7 +42,7 @@ const getDrink = async (drinkName: string) => {
 
 function App() {
   const [showSelect, setShowSelect] = useState(false);
-  const [option, setOption] = useState<OptionType>(null);
+  const [option, setOption] = useState<OptionType>("drink");
   const [randomInput, setRandomInput] = useState("");
 
   const onChageOption = async (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -90,7 +89,7 @@ function App() {
       <main className="w-full flex-1 flex flex-col items-center justify-center">
         <form
           onSubmit={onSubmit}
-          action={`./${randomInput}`}
+          action={`./${option}/${randomInput}`}
           className="flex flex-col gap-3 items-center justify-center"
         >
           <div className="text-xl">

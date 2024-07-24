@@ -1,3 +1,5 @@
+export type OptionType = "eat" | "drink" | null;
+
 export type DrinkType = {
   "idDrink": string | null,
   "strDrink": string | null,

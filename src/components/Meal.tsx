@@ -24,7 +24,7 @@ export const Meal = ({ mealName }: MealProps) => {
 
   useEffect(() => {
     mealRecipe();
-  });
+  }, []);
 
   return (
     <>

@@ -15,16 +15,18 @@ const getDrink = async (name: string) => {
 export const Drink = ({ drinkName }: DrinkProps) => {
   const [recipe, setRecipe] = useState<DrinkType | null>(null);
 
-  const drinkRecipe = async () => {
-    if (!drinkName) return;
-    const data: DrinkType = await getDrink(drinkName);
-    console.log({ data });
-    setRecipe(data);
-  };
+  // create function Ingredients to array, le paso la receta,
+  // mapIngredientsToArray=(recipe): strings[]=>{}
 
   useEffect(() => {
+    const drinkRecipe = async () => {
+      if (!drinkName) return;
+      const data: DrinkType = await getDrink(drinkName);
+      console.log({ data });
+      setRecipe(data);
+    };
     drinkRecipe();
-  });
+  }, [drinkName]);
 
   return (
     <>

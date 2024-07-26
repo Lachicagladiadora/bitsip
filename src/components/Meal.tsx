@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { MealData, MealType, OptionType } from "../types";
+import { MealData, MealType } from "../types";
 
-type MealProps = { mealName: OptionType };
+type MealProps = { mealName?: string };
 
 const getMeal = async (name: string) => {
   const newMeal = await fetch(

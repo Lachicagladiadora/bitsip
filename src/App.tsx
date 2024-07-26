@@ -1,17 +1,24 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
 import { ErrorPage } from "./ErrorPage";
+import { Drink } from "./components/Drink";
+import { Meal } from "./components/Meal";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Home />} errorElement={<ErrorPage />} />
-  )
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/:eat/:strMeal",
+    element: <Meal />,
+  },
+  {
+    path: "/:drink/:strDrink",
+    element: <Drink />,
+  },
+]);
 
 function App() {
   return (

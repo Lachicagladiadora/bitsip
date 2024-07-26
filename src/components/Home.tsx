@@ -62,7 +62,8 @@ function Home() {
     setShowSelect(false);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (option === "drink") {
       const newDrink = getDrink(randomInput);
       console.log({ newDrink });
@@ -89,7 +90,7 @@ function Home() {
     <>
       <main className="w-full flex-1 flex flex-col items-center justify-center">
         <form
-          onSubmit={onSubmit} //poner la ruta con react router dom
+          onSubmit={(e) => onSubmit} //poner la ruta con react router dom
           // action={`./${option}/${randomInput}`}
           className="flex flex-col gap-3 items-center justify-center"
         >

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { OptionType } from "../types";
+import { Form } from "react-router-dom";
 
 const randomInputEat = async () => {
   const random = await fetch(
@@ -46,7 +47,7 @@ function Home() {
   const [randomInput, setRandomInput] = useState("");
 
   const onChageOption = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newOption = e.target.value;
+    const newOption: OptionType = e.target.value;
     setOption(newOption);
 
     if (newOption === "drink") {
@@ -63,11 +64,12 @@ function Home() {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log({ e });
     e.preventDefault();
     if (option === "drink") {
-      const newDrink = getDrink(randomInput);
+      const newDrink = await getDrink(randomInput);
       console.log({ newDrink });
-      //guardar la receta en el local storage
+
       return newDrink;
     }
     if (option === "eat") {
@@ -89,9 +91,8 @@ function Home() {
   return (
     <>
       <main className="w-full flex-1 flex flex-col items-center justify-center">
-        <form
-          onSubmit={(e) => onSubmit} //poner la ruta con react router dom
-          // action={`./${option}/${randomInput}`}
+        <Form
+          onSubmit={onSubmit} //poner la ruta con react router dom
           className="flex flex-col gap-3 items-center justify-center"
         >
           <div className="text-xl">
@@ -122,13 +123,12 @@ function Home() {
           </div>
           {!showSelect && (
             <input
-              value={randomInput}
-              //poner el random input en el placeholder
+              placeholder={randomInput}
               onChange={(e) => setRandomInput(e.target.value)}
               className="py-2 px-4 rounded-md text-xl bg-[#E7D000] text-zinc-400 text-center focus-within:outline-none focus:text-start focus:text-black focus:bg-zinc-100"
             />
           )}
-        </form>
+        </Form>
         {/* // agregar un boton de random recipe */}
       </main>
     </>

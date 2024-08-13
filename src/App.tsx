@@ -9,7 +9,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
-    // action: true,
   },
   {
     path: "/:eat/:strMeal",

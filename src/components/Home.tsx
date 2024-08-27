@@ -1,45 +1,7 @@
 import { useEffect, useState } from "react";
 import { OptionType } from "../types";
 import { Form } from "react-router-dom";
-
-const randomInputEat = async () => {
-  const random = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/random.php"
-  );
-
-  const randomMeal = await random.json();
-  const data = randomMeal["meals"][0];
-  console.log({ randomMeal: data });
-
-  return data;
-};
-
-const randomInputDrink = async () => {
-  const random = await fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-  );
-  const randomDrink = await random.json();
-  const data = randomDrink["drinks"][0];
-  console.log({ randomDrink: data });
-
-  return data;
-};
-
-const getMeal = async (mealName: string) => {
-  const meal = await fetch(
-    `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
-  );
-  const newMeal = await meal.json();
-  console.log({ newMeal });
-};
-
-const getDrink = async (drinkName: string) => {
-  const drink = await fetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkName}`
-  );
-  const newDrink = await drink.json();
-  console.log(newDrink);
-};
+import { getDrink, getMeal, randomInputDrink, randomInputEat } from "../utils";
 
 function Home() {
   const [showSelect, setShowSelect] = useState(false);

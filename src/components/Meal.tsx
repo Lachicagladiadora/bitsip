@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MealData, MealType } from "../types";
 
 type MealProps = { mealName?: string };
@@ -22,9 +22,9 @@ export const Meal = ({ mealName }: MealProps) => {
     setRecipe(data);
   };
 
-  useEffect(() => {
-    mealRecipe();
-  }, []);
+  // useEffect(() => {
+  mealRecipe();
+  // }, []);
 
   return (
     <>

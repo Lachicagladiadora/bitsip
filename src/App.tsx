@@ -9,14 +9,16 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/:eat/:strMeal",
-    element: <Meal />,
-  },
-  {
-    path: "/:drink/:strDrink",
-    element: <Drink />,
+    children: [
+      {
+        path: "/meal/:strMeal",
+        element: <Meal />,
+      },
+      {
+        path: "/drink/:strDrink",
+        element: <Drink />,
+      },
+    ],
   },
 ]);
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { OptionType } from "../types";
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { getDrink, getMeal, randomInputDrink, randomInputEat } from "../utils";
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
   const [option, setOption] = useState<OptionType>("drink");
   const [randomInput, setRandomInput] = useState("");
 
-  const onChageOption = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeOption = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption: OptionType = e.target.value;
     setOption(newOption);
 
@@ -74,12 +74,16 @@ function Home() {
                 id="option-select"
                 autoFocus
                 title="select an option"
-                onChange={onChageOption}
+                onChange={onChangeOption}
                 className="focus-within:outline-none py-2 px-2 rounded-md mr-4 text-gray-400 focus:font-bold focus:text-black"
               >
                 <option value="select option">select option</option>
-                <option value="eat"> eat</option>
-                <option value="drink"> drink</option>
+                <option value="eat">
+                  <Link to={`meal/`}>eat</Link>
+                </option>
+                <option value="drink">
+                  <Link to={`drink/`}>drink</Link>
+                </option>
               </select>
             )}
           </div>

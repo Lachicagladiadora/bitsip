@@ -1,104 +1,25 @@
-import { useEffect, useState } from "react";
-import { OptionType } from "../types";
-import { Form, Link } from "react-router-dom";
-import { getDrink, getMeal, randomInputDrink, randomInputEat } from "../utils";
+import { Link } from "react-router-dom";
 
-function Home() {
-  const [showSelect, setShowSelect] = useState(false);
-  const [option, setOption] = useState<OptionType>("drink");
-  const [randomInput, setRandomInput] = useState("");
-
-  const onChangeOption = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newOption: OptionType = e.target.value;
-    setOption(newOption);
-
-    if (newOption === "drink") {
-      const randomDrink = await randomInputDrink();
-      console.log(randomDrink["strDrink"]);
-      setRandomInput(randomDrink["strDrink"]);
-    }
-    if (newOption === "eat") {
-      const randomMeal = await randomInputEat();
-      console.log(randomMeal["strMeal"]);
-      setRandomInput(randomMeal["strMeal"]);
-    }
-    setShowSelect(false);
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log({ e });
-    e.preventDefault();
-    if (option === "drink") {
-      const newDrink = await getDrink(randomInput);
-      console.log({ newDrink });
-
-      return newDrink;
-    }
-    if (option === "eat") {
-      const newMeal = getMeal(randomInput);
-      console.log({ newMeal });
-      return newMeal;
-    }
-  };
-
-  const FIRST_OPTION = async () => {
-    const data = await randomInputDrink();
-    return setRandomInput(data["strDrink"]);
-  };
-
-  useEffect(() => {
-    FIRST_OPTION();
-  }, []);
-
+export const Home = () => {
   return (
-    <>
-      <main className="w-full flex-1 flex flex-col items-center justify-center">
-        <Form
-          onSubmit={onSubmit} //poner la ruta con react router dom
-          className="flex flex-col gap-3 items-center justify-center"
-        >
-          <div className="text-xl">
-            I want to{" "}
-            {!showSelect && (
-              <button
-                type="button"
-                onClick={() => setShowSelect(!showSelect)}
-                className="font-bold"
-              >
-                {option ? `${option}` : "drink"}
-              </button>
-            )}
-            {showSelect && (
-              <select
-                name="options"
-                id="option-select"
-                autoFocus
-                title="select an option"
-                onChange={onChangeOption}
-                className="focus-within:outline-none py-2 px-2 rounded-md mr-4 text-gray-400 focus:font-bold focus:text-black"
-              >
-                <option value="select option">select option</option>
-                <option value="eat">
-                  <Link to={`meal/`}>eat</Link>
-                </option>
-                <option value="drink">
-                  <Link to={`drink/`}>drink</Link>
-                </option>
-              </select>
-            )}
-          </div>
-          {!showSelect && (
-            <input
-              placeholder={randomInput}
-              onChange={(e) => setRandomInput(e.target.value)}
-              className="py-2 px-4 rounded-md text-xl bg-[#E7D000] text-zinc-400 text-center focus-within:outline-none focus:text-start focus:text-black focus:bg-zinc-100"
-            />
-          )}
-        </Form>
-        {/* // agregar un boton de random recipe */}
-      </main>
-    </>
+    <div className="h-full w-full flex flex-col items-center justify-center gap-4 text-yellow-50">
+      <>
+        <h3>I want a ...</h3>
+        <div className="flex items-center justify-center gap-10">
+          <Link
+            to={`/meal`}
+            className="px-4 py-2 rounded-lg border border-amber-200 hover:border-yellow-200 hover:text-yellow-700 hover:bg-yellow-500"
+          >
+            meal
+          </Link>
+          <Link
+            to={`/drink`}
+            className="px-4 py-2 rounded-lg border border-amber-200 hover:border-yellow-200 hover:text-yellow-700 hover:bg-yellow-500"
+          >
+            drink
+          </Link>
+        </div>
+      </>
+    </div>
   );
-}
-
-export default Home;
+};

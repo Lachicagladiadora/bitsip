@@ -1,8 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./components/Home";
+import { Home } from "./components/Home";
 import { ErrorPage } from "./ErrorPage";
-import { Drink } from "./components/Drink";
-import { Meal } from "./components/Meal";
+import { WantMealOrDrink } from "./components/WantMealOrDrink";
 
 const router = createBrowserRouter([
   {
@@ -11,12 +10,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/meal/:strMeal",
-        element: <Meal />,
+        path: "/:option",
+        element: <WantMealOrDrink option="meal" />,
       },
       {
-        path: "/drink/:strDrink",
-        element: <Drink />,
+        path: "/:option",
+        element: <WantMealOrDrink option="drink" />,
       },
     ],
   },

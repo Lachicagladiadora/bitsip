@@ -1,6 +1,8 @@
 import { Form, Link } from "react-router-dom";
 
-type WantMealOrDrinkProps = { option: "meal" | "drink" };
+type WantMealOrDrinkProps = {
+  option: "meal" | "drink" | null;
+};
 
 export const WantMealOrDrink = ({ option }: WantMealOrDrinkProps) => {
   return (

@@ -1,4 +1,10 @@
-import { Link } from "react-router-dom";
+// import { SetStateAction } from "react";
+import { Link, Outlet } from "react-router-dom";
+
+// type HomeProps = {
+//   option?: "meal" | "drink" | null;
+//   setOption?: (_param: "meal" | "drink" | null) => void;
+// };
 
 export const Home = () => {
   return (
@@ -7,12 +13,14 @@ export const Home = () => {
         <h3>I want a ...</h3>
         <div className="flex items-center justify-center gap-10">
           <Link
+            // onClick={() => setOption("meal")}
             to={`/meal`}
             className="px-4 py-2 rounded-lg border border-amber-200 hover:border-yellow-200 hover:text-yellow-700 hover:bg-yellow-500"
           >
             meal
           </Link>
           <Link
+            // onClick={() => setOption("drink")}
             to={`/drink`}
             className="px-4 py-2 rounded-lg border border-amber-200 hover:border-yellow-200 hover:text-yellow-700 hover:bg-yellow-500"
           >
@@ -20,6 +28,7 @@ export const Home = () => {
           </Link>
         </div>
       </>
+      <Outlet />
     </div>
   );
 };

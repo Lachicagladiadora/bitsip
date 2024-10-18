@@ -12,7 +12,7 @@ export const Header = () => {
   }, [isDarkTheme]);
 
   return (
-    <div className="px-4 flex items-center justify-between text-black dark:text-white">
+    <div className="w-full h-20 px-4 flex items-center justify-between text-black dark:text-white">
       <button className="size-6 text-black dark:text-white">
         <Bars2Icon />
       </button>

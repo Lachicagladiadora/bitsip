@@ -1,13 +1,10 @@
-import { BeakerIcon } from "@heroicons/react/16/solid";
+import { Header } from "./components/Header";
 
 function App() {
   return (
-    <>
-      <div>
-        App
-        <BeakerIcon className="size-6 text-blue-500" />
-      </div>
-    </>
+    <div>
+      <Header />
+    </div>
   );
 }
 

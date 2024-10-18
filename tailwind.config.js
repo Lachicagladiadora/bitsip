@@ -6,7 +6,11 @@ export default {
   ],
   theme: {
     extend: {},
+
   },
+  // darkMode: {
+  //   darkMode: 'selector',
+  // },
   plugins: [],
 }
 

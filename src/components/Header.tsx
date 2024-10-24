@@ -1,5 +1,5 @@
 import { SunIcon } from "@heroicons/react/24/outline";
-import { Bars2Icon, MoonIcon } from "@heroicons/react/24/solid";
+import { MoonIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
@@ -12,16 +12,15 @@ export const Header = () => {
   }, [isDarkTheme]);
 
   return (
-    <div className="w-full h-20 px-4 flex items-center justify-between text-black dark:text-white">
-      <button className="size-6 text-black dark:text-white">
-        <Bars2Icon />
-      </button>
-      <h1 className="text-black dark:text-white">BitSip</h1>
+    <div className="w-full px-4 flex items-center justify-between">
+      <h1 className="">
+        <a href="/">BitSip</a>
+      </h1>
       <button
-        className="size-6 text-black dark:text-white"
+        className="size-8 "
         onClick={() => setIsDarkTheme((prev) => !prev)}
       >
-        {isDarkTheme ? <SunIcon /> : <MoonIcon />}
+        {isDarkTheme ? <SunIcon /> : <MoonIcon className="text-inherit" />}
       </button>
     </div>
   );

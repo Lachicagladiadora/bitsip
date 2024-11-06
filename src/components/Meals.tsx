@@ -17,52 +17,23 @@ import { Meal } from "./Meal";
 export const Meals = () => {
   const [meal, setMeal] = useState("");
 
-  // const { mealParam } = useParams();
   const navigate = useNavigate();
-
-  console.log({ meal });
 
   return (
     <div className="flex flex-col gap-8">
       Meals
-      {/* <Meal /> */}
       <input
         type="text"
         value={meal}
         onChange={(e) => setMeal(e.target.value)}
       />
-      {/* <Link to={"/search-meal/lasagna"}>Lasagna</Link> */}
-      <Link
-        to={`/search-meal/${meal}`}
-        onClick={() => {
-          setMeal("lasagna");
-        }}
-      >
-        Lasagna
-      </Link>
       <button
         onClick={() => {
-          // setMeal("Pasta");
-          navigate(`${meal}`);
-        }}
-      >
-        Pasta
-      </button>
-      <button
-        onClick={() => {
-          // setMeal("Pasta");
           navigate("cake");
         }}
       >
         cake
       </button>
-      <Link to={`/search-meal/${meal}`} onClick={() => setMeal("Saltado")}>
-        Saltado
-      </Link>
-      {/* <RouterProvider router={router} /> */}
-      {/* <Routes>
-        <Route path="/:meal" element={<Meal />} loader action />
-      </Routes> */}
     </div>
   );
 };

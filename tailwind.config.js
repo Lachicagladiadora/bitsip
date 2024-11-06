@@ -18,6 +18,11 @@ export default {
         red: "#EC3434",
         gray: "#7E7979",
         grayBlank: "#D8D8D8",
+      },
+      fontFamily: {
+        // vibes: ['vibes']
+        WindSong: ['WindSong'],
+        Grandstander: ['Grandstander']
       }
     },
   },

@@ -1,5 +1,4 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Meals } from "./components/Meals";
@@ -23,7 +22,7 @@ function App() {
         <Route path="/search-drink/:drink" element={<Drink />} />
       </Routes>
 
-      <Footer />
+      <p className="p-2">by Lachicagladiadora</p>
     </div>
   );
 }

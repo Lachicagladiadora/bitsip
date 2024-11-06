@@ -1,26 +1,24 @@
-import { SunIcon } from "@heroicons/react/24/outline";
-import { MoonIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 
 export const Header = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  useEffect(() => {
-    const bodyElement = document.querySelector("body");
-    if (!bodyElement) return;
-    bodyElement.classList.toggle("dark");
-  }, [isDarkTheme]);
-
   return (
-    <div className="w-full px-4 flex items-center justify-between">
-      <h1 className="">
+    <div className="w-full p-4 flex items-center justify-between">
+      <h1 className="flex-1 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
         <a href="/">BitSip</a>
       </h1>
       <button
-        className="size-8 "
-        onClick={() => setIsDarkTheme((prev) => !prev)}
+        className="size-6 sm:size-7 md:size-8 lg:size-9"
+        onClick={() => {
+          setIsDarkTheme((prev) => !prev);
+          const bodyElement = document.querySelector("html");
+          if (!bodyElement) return;
+          bodyElement.classList.toggle("dark");
+        }}
       >
-        {isDarkTheme ? <SunIcon /> : <MoonIcon className="text-inherit" />}
+        {isDarkTheme ? <SunIcon /> : <MoonIcon />}
       </button>
     </div>
   );

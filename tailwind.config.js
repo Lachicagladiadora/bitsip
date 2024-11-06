@@ -5,7 +5,21 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        blank: "#ECEBE9",
+        obscure: "#1F1F1F",
+        orange: "#F77402",
+        orangeBlank: "#FFEFE1",
+        aquamarine: "#009395",
+        aquamarineBlank: "#D5F8F8",
+        yellow: "#F3E81D",
+        green: "#51A434",
+        red: "#EC3434",
+        gray: "#7E7979",
+        grayBlank: "#D8D8D8",
+      }
+    },
   },
   darkMode: 'class',
   plugins: [],

@@ -9,12 +9,10 @@ import { Drink } from "./components/Drink";
 
 function App() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between">
+    <div className="w-full h-full flex-1 flex flex-col items-center justify-between">
       <Header />
-      <div className="w-full h-full flex-1 border-2 border-cyan-600">
-        <h1 className="font-bold text-4xl text-center text-red-600">Home</h1>
-      </div>
       <Outlet />
+
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -24,6 +22,7 @@ function App() {
         <Route path="/search-drink" element={<Drinks />} />
         <Route path="/search-drink/:drink" element={<Drink />} />
       </Routes>
+
       <Footer />
     </div>
   );

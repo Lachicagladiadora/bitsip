@@ -1,8 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Home } from "./components/Home";
-import { Meals } from "./components/Meals";
-import { Drinks } from "./components/Drinks";
+import { SearchMeal } from "./components/SearchMeal";
+import { SearchDrink } from "./components/SearchDrink";
 import { Meal } from "./components/Meal";
 import { Drink } from "./components/Drink";
 
@@ -15,10 +15,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/search-meal" element={<Meals />} />
+        <Route path="/search-meal" element={<SearchMeal />} />
         <Route path="/search-meal/:meal" element={<Meal />} />
 
-        <Route path="/search-drink" element={<Drinks />} />
+        <Route path="/search-drink" element={<SearchDrink />} />
         <Route path="/search-drink/:drink" element={<Drink />} />
       </Routes>
 

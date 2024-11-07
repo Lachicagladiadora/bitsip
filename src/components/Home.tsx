@@ -1,28 +1,40 @@
-import { Link, Navigate } from "react-router-dom";
+import { SparklesIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
-export const Home = () => (
-  <div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita enim
-      dolores perferendis sequi officia iusto, consequatur quis at corporis,
-      eius fugiat quibusdam veritatis reiciendis quo dolorum, reprehenderit
-      nostrum asperiores ducimus!
-    </p>
-    <div>
-      <Link
-        to="search-meal"
-        // replace={true}
-        className="w-[130px] h-[50px] border-[1px] rounded-lg border-neutral-500 text-neutral-500 font-bold bg-neutral-300 hover:border-orange-500 hover:text-white hover:bg-orange-500"
-      >
-        Meal
-      </Link>
-      <Link
-        to={"search-drink"}
-        // replace={true}
-        className="w-[130px] h-[50px] border-[1px] rounded-lg border-neutral-500 text-neutral-500 font-bold bg-neutral-300 hover:border-cyan-500 hover:text-white hover:bg-cyan-500"
-      >
-        Drink
-      </Link>
+export const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="w-full h-full p-7 max-w-[600px] flex flex-col gap-10">
+      <p className="font-[900] text-3xl text-center md:text-4xl">
+        Do you need to prepare a{" "}
+        <span className="uppercase text-orange">meal</span> or prepare a{" "}
+        <span className="uppercase text-aquamarine">drink</span> and you don't
+        know what or how to{" "}
+        <span className="uppercase text-yellow relative ">
+          surprise
+          <SparklesIcon className="absolute -top-[30%] left-[99%] size-4" />
+        </span>{" "}
+        your palate?
+      </p>
+      <div className="w-full flex  items-center justify-evenly">
+        <button
+          onClick={() => {
+            navigate("search-meal");
+          }}
+          className="w-[136px] h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-orange hover:border-orangeBlank hover:text-orangeBlank"
+        >
+          Meal
+        </button>
+        <button
+          onClick={() => {
+            navigate("search-drink");
+          }}
+          className="w-[136px] h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-aquamarine hover:border-aquamarineBlank hover:text-aquamarineBlank"
+        >
+          Drink
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};

@@ -13,7 +13,7 @@ export default {
         orangeBlank: "#FFEFE1",
         aquamarine: "#009395",
         aquamarineBlank: "#D5F8F8",
-        yellow: "#F3E81D",
+        yellow: "#eee206",
         green: "#51A434",
         red: "#EC3434",
         gray: "#7E7979",

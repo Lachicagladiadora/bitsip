@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Vibes&display=swap");
-
 * {
   padding: 0px;
   margin: 0px;

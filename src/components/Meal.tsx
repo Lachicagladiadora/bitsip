@@ -1,52 +1,88 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MealData, MealType } from "../types";
+import { DrinkType, MealType } from "../types";
 import { responseMeal } from "../constants";
+import { getMeal, getStringList } from "../utils";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export const Meal = () => {
   const [currentMeal, setCurrentMeal] = useState<MealType | null>(
     responseMeal.meals[0]
   );
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+  const [measureList, setMeasureList] = useState<string[]>([]);
 
-  const { meal } = useParams();
+  const { meal } = useParams<string>();
 
-  // const ingredients =[]
-  // const quantities =[]
+  const newMeal = async (mealName: string) => {
+    if (!mealName) setCurrentMeal(responseMeal.meals[0]);
+    const recipe = await getMeal(mealName);
+    setCurrentMeal(recipe.meals[0]);
+  };
+
+  // UseEffects
+  useEffect(() => {
+    newMeal(meal);
+  }, [meal]);
+
+  useEffect(() => {
+    const listIngredient: string[] =
+      getStringList({
+        object: currentMeal,
+        entry: "strIngredient",
+      }) ?? [];
+    setIngredientsList(listIngredient);
+    const listMeasure: string[] =
+      getStringList({
+        object: currentMeal,
+        entry: "strMeasure",
+      }) ?? [];
+    setMeasureList(listMeasure);
+  }, [currentMeal]);
 
   return (
     <div className="w-full h-full max-w-[800px] p-4 flex flex-col items-center justify-center gap-6">
-      <header className="flex gap-4 items-center justify-center">
-        <div className="size-40 md:size-60 lg:size-80 relative">
-          <img
-            src={`${currentMeal?.strMealThumb}`}
-            alt={`${currentMeal?.strMealThumb}`}
-          />
+      <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
+        {/* Image */}
+        <div
+          className={`bg-[url('${currentMeal?.strMealThumb}')] size-48 sm:w-1/2 md:h-[320px] relative bg-center bg-cover rounded-lg shadow-md`}
+        >
+          {!currentMeal?.strMealThumb && (
+            <PhotoIcon className="h-full w-full" />
+          )}
           <div className="px-2 py-1 rounded-e-md absolute top-2 left-0 text-xs bg-obscure text-blank dark:bg-blank dark:text-obscure">
             {currentMeal?.strCategory}
           </div>
         </div>
-        <h2 className="flex-1 font-WindSong text-xl md:text-2xl lg:text-3xl">
+        {/* Title */}
+        <h2 className="flex-1 font-WindSong text-xl text-center font-bold md:text-2xl lg:text-3xl">
           {currentMeal?.strMeal}
         </h2>
       </header>
-      <main className="flex flex-col gap-4">
-        <section>
-          <h3>Instructions</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Ingredients</th>
-                <th>Quantities</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr></tr>
-            </tbody>
-          </table>
+      <main className="w-full flex flex-col gap-4">
+        {/* Ingredients */}
+        <section className="w-full flex">
+          <div className="flex-1">
+            <h3 className="font-bold text-lg">Ingredients</h3>
+            <ol className="list-inside list-disc">
+              {ingredientsList.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ol>
+          </div>
+          <div className="w-1/2 md:w-1/3">
+            <h3 className="font-bold text-lg">Quantities</h3>
+            <ul>
+              {measureList.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
         </section>
+        {/* Instructions */}
         <section>
-          <h3>Instructions</h3>
-          <p>{currentMeal?.strInstructions}</p>
+          <h3 className="font-bold text-lg">Instructions</h3>
+          <p className="font-light">{currentMeal?.strInstructions}</p>
         </section>
       </main>
     </div>

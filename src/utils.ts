@@ -1,9 +1,11 @@
-import { DrinkType, MealData, MealType } from "./types";
+import { DrinkData, DrinkType, MealData, MealType } from "./types";
 
 // pure functions
 
 // petition
-export const randomInputEat = async () => {
+
+// random
+export const getRandomMeal = async () => {
   const random = await fetch(
     "https://www.themealdb.com/api/json/v1/1/random.php"
   );
@@ -15,7 +17,7 @@ export const randomInputEat = async () => {
   return data;
 };
 
-export const randomInputDrink = async () => {
+export const getRandomDrink = async () => {
   const random = await fetch(
     "https://www.thecocktaildb.com/api/json/v1/1/random.php"
   );
@@ -26,6 +28,7 @@ export const randomInputDrink = async () => {
   return data;
 };
 
+// By name
 export const getMeal = async (mealName: string): Promise<MealData> => {
   const meal = await fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
@@ -43,6 +46,15 @@ export const getDrink = async (drinkName: string) => {
   console.log(newDrink);
 };
 
+// By first letter
+export const getMealByFirstLetter = async (letter: string) => {
+  const response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
+  );
+  const data = response.json();
+  return data;
+};
+
 // get a array according number in the final to property object
 
 type GetStringListInput = {
@@ -58,4 +70,16 @@ export const getStringList = ({ object, entry }: GetStringListInput) => {
     if (!elementList) return list;
     list.push(elementList);
   }
+};
+
+// get array with list name from meal or drink
+type GetNameList = { objectList: MealType[] | DrinkType[]; entryName: string };
+
+export const getNameList = ({ objectList, entryName }: GetNameList) => {
+  const newList: string[] = [];
+  objectList.forEach((c) => {
+    const name: string = c[`${entryName}`];
+    newList.push(name);
+  });
+  return newList;
 };

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DrinkType, MealType } from "../types";
+import { MealType } from "../types";
 import { responseMeal } from "../constants";
 import { getMeal, getStringList } from "../utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";

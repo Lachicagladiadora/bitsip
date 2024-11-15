@@ -1,17 +1,15 @@
-import { DrinkType, MealData, MealType } from "./types";
+import { DrinkType, MealType } from "./types";
 
 // pure functions
 
-// petition
-
-// random
+// #region Petition
 export const getRandomMeal = async () => {
   try {
-    const random = await fetch(
+    const response = await fetch(
       "https://www.themealdb.com/api/json/v1/1/random.php"
     );
 
-    const randomMeal = await random.json();
+    const randomMeal = await response.json();
     const data = randomMeal["meals"][0];
     console.log({ randomMeal: data });
 
@@ -23,10 +21,10 @@ export const getRandomMeal = async () => {
 
 export const getRandomDrink = async () => {
   try {
-    const random = await fetch(
+    const response = await fetch(
       "https://www.thecocktaildb.com/api/json/v1/1/random.php"
     );
-    const randomDrink = await random.json();
+    const randomDrink = await response.json();
     const data = randomDrink["drinks"][0];
     console.log({ randomDrink: data });
 
@@ -36,33 +34,34 @@ export const getRandomDrink = async () => {
   }
 };
 
-// By name
-export const getMeal = async (mealName: string): Promise<MealData> => {
+export const getMealByName = async (mealName: string) => {
   try {
-    const meal = await fetch(
+    const response = await fetch(
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
     );
-    const newMeal = await meal.json();
-    console.log({ newMeal });
-    return newMeal;
+    const newMeal = await response.json();
+    const data: MealType = newMeal["meals"][0];
+    console.log({ mealByName: data });
+    return data;
   } catch (error) {
     console.error({ error });
   }
 };
 
-export const getDrink = async (drinkName: string) => {
+export const getDrinkByName = async (drinkName: string) => {
   try {
-    const drink = await fetch(
+    const response = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkName}`
     );
-    const newDrink = await drink.json();
-    console.log(newDrink);
+    const newDrink = await response.json();
+    const data = newDrink["drinks"][0];
+    console.log(data);
+    return data;
   } catch (error) {
     console.error({ error });
   }
 };
 
-// By first letter
 export const getMealByFirstLetter = async (letter: string) => {
   try {
     const response = await fetch(
@@ -87,25 +86,32 @@ export const getStringList = ({ object, entry }: GetStringListInput) => {
     if (!object || !entry) return;
     const list: string[] = [];
     for (let index = 1; index < 20; index++) {
-      const elementList: string = object[entry + String(index)];
+      const property: string = entry + index.toString();
+      const elementList: string = object[property];
       if (!elementList) return list;
       list.push(elementList);
+      console.log({ list });
     }
   } catch (error) {
     console.error({ error });
   }
 };
 
+// #region other functions
 // get array with list name from meal or drink
 type GetNameList = { objectList: MealType[] | DrinkType[]; entryName: string };
 
-export const getNameList = ({ objectList, entryName }: GetNameList) => {
+export const getNameList = ({
+  objectList,
+  entryName,
+}: GetNameList): string[] | undefined => {
   try {
     const newList: string[] = [];
     objectList.forEach((c) => {
       const name: string = c[`${entryName}`];
       newList.push(name);
     });
+    console.log({ newList });
     return newList;
   } catch (error) {
     console.error({ error });

@@ -35,7 +35,7 @@ export const SearchMeal = () => {
       const dataList: string[] = getNameList({
         objectList: data.meals,
         entryName: "strMeal",
-      });
+      }) ?? [proposedMeal["meals"][0][""]];
       if (!dataList) return;
       setRenderListAutocomplete(dataList);
       setListAutocomplete(dataList);

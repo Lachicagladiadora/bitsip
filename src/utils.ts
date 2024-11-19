@@ -1,3 +1,4 @@
+import { connectors } from "./constants";
 import { DrinkType, MealType } from "./types";
 
 // pure functions
@@ -114,6 +115,23 @@ export const getNameList = ({
     console.log({ newList });
     return newList;
   } catch (error) {
+    // #region TO-DO: review witn "q", "z","x"
     console.error({ error });
   }
 };
+
+// type GetCapitalizeStringInput = { string: string };
+
+// export const getCapitalizeString = ({ string }: GetCapitalizeStringInput) => {
+//   const arrayString = string.split("");
+//   console.log({ arrayString });
+//   const array = arrayString.map((c) => {
+//     if (connectors.map((article) => article === c)) return c;
+//     const firstLetter = c.slice(0, 1);
+//     const restOfTheWord = c.slice(1);
+//     const word = firstLetter.toLocaleUpperCase() + restOfTheWord;
+//     console.log({ word });
+//     return word;
+//   });
+//   return array[0];
+// };

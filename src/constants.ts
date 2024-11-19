@@ -115,3 +115,20 @@ export const responseDrink = {
   strCreativeCommonsConfirmed: "No",
   dateModified: "2016-09-02 11:28:32",
 };
+
+export const connectors = [
+  "the",
+  "a",
+  "an",
+  "and",
+  "with",
+  "in",
+  "on",
+  "for",
+  "of",
+  "from",
+  "by",
+  "over",
+  // "under",
+  // "alongside",
+];

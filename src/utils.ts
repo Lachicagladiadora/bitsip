@@ -75,6 +75,18 @@ export const getMealByFirstLetter = async (letter: string) => {
   }
 };
 
+export const getDrinkByFirstLetter = async (letter: string) => {
+  try {
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`
+    );
+    const data = response.json();
+    return data;
+  } catch (error) {
+    console.error({ error });
+  }
+};
+
 // get a array according number in the final to property object
 
 type GetStringListInput = {
@@ -100,12 +112,12 @@ export const getStringList = ({ object, entry }: GetStringListInput) => {
 
 // #region other functions
 // get array with list name from meal or drink
-type GetNameList = { objectList: MealType[] | DrinkType[]; entryName: string };
+type GetNamesList = { objectList: MealType[] | DrinkType[]; entryName: string };
 
 export const getNameList = ({
   objectList,
   entryName,
-}: GetNameList): string[] | undefined => {
+}: GetNamesList): string[] | undefined => {
   try {
     const newList: string[] = [];
     objectList.forEach((c) => {
@@ -115,7 +127,7 @@ export const getNameList = ({
     console.log({ newList });
     return newList;
   } catch (error) {
-    // #region TO-DO: review witn "q", "z","x"
+    // #region TO-DO: review with "q", "z","x"
     console.error({ error });
   }
 };

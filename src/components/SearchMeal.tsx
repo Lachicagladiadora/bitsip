@@ -83,13 +83,13 @@ export const SearchMeal = () => {
           // # TO-DO
           // add event to key for select a option in renderListAutocomplete
           // onKeyDown={e=>}
-          className="w-full h-10 px-4 py-2 outline-none border border-gray rounded-lg bg-blank dark:bg-obscure flex items-center justify-center placeholder:font-WindSong placeholder:text-xl placeholder:font-bold placeholder:align-text-bottom placeholder:line-clamp-1"
+          className="input"
         />
         <button className="size-6" onClick={() => navigate(`${querySearch}`)}>
           <MagnifyingGlassIcon />
         </button>
         {querySearch && (
-          <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
+          <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
             {!renderListAutocomplete && <p>Not found</p>}
             {renderListAutocomplete === "Loading" && <p>Loading...</p>}
             {renderListAutocomplete &&
@@ -121,7 +121,7 @@ export const SearchMeal = () => {
           </div>
           <button
             onClick={() => navigate(`${proposedMeal.strMeal}`)}
-            className="w-full h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-orange hover:border-orangeBlank hover:text-orangeBlank"
+            className="btn-meal"
           >
             Get recipe
           </button>

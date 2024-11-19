@@ -83,7 +83,7 @@ export const SearchDrink = () => {
           // # TO-DO
           // add event to key for select a option in renderListAutocomplete
           // onKeyDown={e=>}
-          className="w-full h-10 px-4 py-2 outline-none border border-gray rounded-lg bg-blank dark:bg-obscure flex items-center justify-center placeholder:font-WindSong placeholder:text-xl placeholder:font-bold placeholder:align-text-bottom placeholder:line-clamp-1"
+          className="input"
         />
         <button className="size-6" onClick={() => navigate(`${querySearch}`)}>
           <MagnifyingGlassIcon />
@@ -121,7 +121,7 @@ export const SearchDrink = () => {
           </div>
           <button
             onClick={() => navigate(`${proposedDrink.strDrink}`)}
-            className="w-full h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-orange hover:border-orangeBlank hover:text-orangeBlank"
+            className="btn-drink"
           >
             Get recipe
           </button>

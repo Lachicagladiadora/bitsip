@@ -87,7 +87,9 @@ export const Meal = () => {
             {/* Instructions */}
             <section>
               <h3 className="font-bold text-lg">Instructions</h3>
-              <p className="font-light">{currentMeal?.strInstructions}</p>
+              <p className="font-light indent-10 whitespace-pre-line">
+                {currentMeal?.strInstructions}
+              </p>
             </section>
           </main>
         </>

@@ -17,12 +17,12 @@ export const Home = () => {
         </span>{" "}
         your palate?
       </p>
-      <div className="w-full flex  items-center justify-evenly">
+      <div className="w-full flex items-center justify-evenly gap-10">
         <button
           onClick={() => {
             navigate("search-meal");
           }}
-          className="w-[136px] h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-orange hover:border-orangeBlank hover:text-orangeBlank"
+          className="btn-meal"
         >
           Meal
         </button>
@@ -30,7 +30,7 @@ export const Home = () => {
           onClick={() => {
             navigate("search-drink");
           }}
-          className="w-[136px] h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl  border-[1px] border-gray bg-grayBlank text-gray hover:bg-aquamarine hover:border-aquamarineBlank hover:text-aquamarineBlank"
+          className="btn-drink"
         >
           Drink
         </button>

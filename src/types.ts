@@ -1,120 +1,125 @@
 export type OptionType = "eat" | "drink" | null;
 
+export type DrinkTypeKey =
+  | "idDrink"
+  | "strDrink"
+  | "strDrinkAlternate"
+  | "strTags"
+  | "strVideo"
+  | "strCategory"
+  | "strIBA"
+  | "strAlcoholic"
+  | "strGlass"
+  | "strInstructions"
+  | "strInstructionsES"
+  | "strInstructionsDE"
+  | "strInstructionsFR"
+  | "strInstructionsIT"
+  | "strInstructionsZH-HANS"
+  | "strInstructionsZH-HANT"
+  | "strDrinkThumb"
+  | "strIngredient1"
+  | "strIngredient2"
+  | "strIngredient3"
+  | "strIngredient4"
+  | "strIngredient5"
+  | "strIngredient6"
+  | "strIngredient7"
+  | "strIngredient8"
+  | "strIngredient9"
+  | "strIngredient10"
+  | "strIngredient11"
+  | "strIngredient12"
+  | "strIngredient13"
+  | "strIngredient14"
+  | "strIngredient15"
+  | "strMeasure1"
+  | "strMeasure2"
+  | "strMeasure3"
+  | "strMeasure4"
+  | "strMeasure5"
+  | "strMeasure6"
+  | "strMeasure7"
+  | "strMeasure8"
+  | "strMeasure9"
+  | "strMeasure10"
+  | "strMeasure11"
+  | "strMeasure12"
+  | "strMeasure13"
+  | "strMeasure14"
+  | "strMeasure15"
+  | "strImageSource"
+  | "strImageAttribution"
+  | "strCreativeCommonsConfirmed"
+  | "dateModified";
+
 export type DrinkType = {
-  "idDrink": string | null,
-  "strDrink": string | null,
-  "strDrinkAlternate":string | null,
-  "strTags": string | null,
-  "strVideo":string | null,
-  "strCategory": string | null,
-  "strIBA": string | null,
-  "strAlcoholic": string | null,
-  "strGlass": string | null,
-  "strInstructions": string | null,
-  "strInstructionsES":string | null,
-  "strInstructionsDE": string | null,
-  "strInstructionsFR":string | null,
-  "strInstructionsIT": string | null,
-  "strInstructionsZH-HANS":string | null,
-  "strInstructionsZH-HANT":string | null,
-  "strDrinkThumb": string | null,
-  "strIngredient1": string | null,
-  "strIngredient2": string | null,
-  "strIngredient3": string | null,
-  "strIngredient4": string | null,
-  "strIngredient5":string | null,
-  "strIngredient6":string | null,
-  "strIngredient7":string | null,
-  "strIngredient8":string | null,
-  "strIngredient9":string | null,
-  "strIngredient10":string | null,
-  "strIngredient11":string | null,
-  "strIngredient12":string | null,
-  "strIngredient13":string | null,
-  "strIngredient14":string | null,
-  "strIngredient15":string | null,
-  "strMeasure1": string | null,
-  "strMeasure2": string | null,
-  "strMeasure3": string | null,
-  "strMeasure4":string | null,
-  "strMeasure5":string | null,
-  "strMeasure6":string | null,
-  "strMeasure7":string | null,
-  "strMeasure8":string | null,
-  "strMeasure9":string | null,
-  "strMeasure10":string | null,
-  "strMeasure11":string | null,
-  "strMeasure12":string | null,
-  "strMeasure13":string | null,
-  "strMeasure14":string | null,
-  "strMeasure15":string | null,
-  "strImageSource": string | null,
-  "strImageAttribution": string | null,
-  "strCreativeCommonsConfirmed": string | null,
-  "dateModified": string | null,
-}
+  [key in DrinkTypeKey]: string | null;
+};
 
-export type MealType= {
-  "idMeal": string | null,
-  "strMeal": string | null,
-  "strDrinkAlternate": string | null,
-  "strCategory": string | null,
-  "strArea": string | null,
-  "strInstructions": string | null,
-  "strMealThumb": string | null,
-  "strTags": string | null,
-  "strYoutube": string | null,
-  "strIngredient1": string | null,
-  "strIngredient2": string | null,
-  "strIngredient3": string | null,
-  "strIngredient4": string | null,
-  "strIngredient5": string | null,
-  "strIngredient6": string | null,
-  "strIngredient7": string | null,
-  "strIngredient8": string | null,
-  "strIngredient9": string | null,
-  "strIngredient10": string | null,
-  "strIngredient11": string | null,
-  "strIngredient12": string | null,
-  "strIngredient13": string | null,
-  "strIngredient14": string | null,
-  "strIngredient15": string | null,
-  "strIngredient16": string | null,
-  "strIngredient17": string | null,
-  "strIngredient18": string | null,
-  "strIngredient19": string | null,
-  "strIngredient20": string | null,
-  "strMeasure1": string | null,
-  "strMeasure2": string | null,
-  "strMeasure3": string | null,
-  "strMeasure4": string | null,
-  "strMeasure5": string | null,
-  "strMeasure6": string | null,
-  "strMeasure7": string | null,
-  "strMeasure8": string | null,
-  "strMeasure9": string | null,
-  "strMeasure10": string | null,
-  "strMeasure11": string | null,
-  "strMeasure12": string | null,
-  "strMeasure13": string | null,
-  "strMeasure14": string | null,
-  "strMeasure15": string | null,
-  "strMeasure16": string | null,
-  "strMeasure17": string | null,
-  "strMeasure18": string | null,
-  "strMeasure19": string | null,
-  "strMeasure20": string | null,
-  "strSource": string | null,
-  "strImageSource": string | null,
-  "strCreativeCommonsConfirmed": string | null,
-  "dateModified": string | null
-}
+export type MealTypeKey =
+  | "idMeal"
+  | "strMeal"
+  | "strDrinkAlternate"
+  | "strCategory"
+  | "strArea"
+  | "strInstructions"
+  | "strMealThumb"
+  | "strTags"
+  | "strYoutube"
+  | "strIngredient1"
+  | "strIngredient2"
+  | "strIngredient3"
+  | "strIngredient4"
+  | "strIngredient5"
+  | "strIngredient6"
+  | "strIngredient7"
+  | "strIngredient8"
+  | "strIngredient9"
+  | "strIngredient10"
+  | "strIngredient11"
+  | "strIngredient12"
+  | "strIngredient13"
+  | "strIngredient14"
+  | "strIngredient15"
+  | "strIngredient16"
+  | "strIngredient17"
+  | "strIngredient18"
+  | "strIngredient19"
+  | "strIngredient20"
+  | "strMeasure1"
+  | "strMeasure2"
+  | "strMeasure3"
+  | "strMeasure4"
+  | "strMeasure5"
+  | "strMeasure6"
+  | "strMeasure7"
+  | "strMeasure8"
+  | "strMeasure9"
+  | "strMeasure10"
+  | "strMeasure11"
+  | "strMeasure12"
+  | "strMeasure13"
+  | "strMeasure14"
+  | "strMeasure15"
+  | "strMeasure16"
+  | "strMeasure17"
+  | "strMeasure18"
+  | "strMeasure19"
+  | "strMeasure20"
+  | "strSource"
+  | "strImageSource"
+  | "strCreativeCommonsConfirmed"
+  | "dateModified";
 
+export type MealType = {
+  [key in MealTypeKey]: string | null;
+};
 
 export type DrinkData = {
-  "drinks": DrinkType[]
-}
+  drinks: DrinkType[];
+};
 
 export type MealData = {
-  "meals": MealType[]
-}
+  meals: MealType[];
+};

@@ -1,4 +1,3 @@
-import { connectors } from "./constants";
 import { DrinkType, MealType } from "./types";
 
 // pure functions
@@ -112,7 +111,10 @@ export const getStringList = ({ object, entry }: GetStringListInput) => {
 
 // #region other functions
 // get array with list name from meal or drink
-type GetNamesList = { objectList: MealType[] | DrinkType[]; entryName: string };
+type GetNamesList = {
+  objectList: MealType[] | DrinkType[];
+  entryName: "strMeal" | "strDrink";
+};
 
 export const getNameList = ({
   objectList,
@@ -121,7 +123,7 @@ export const getNameList = ({
   try {
     const newList: string[] = [];
     objectList.forEach((c) => {
-      const name: string = c[`${entryName}`];
+      const name = c[entryName];
       newList.push(name);
     });
     console.log({ newList });

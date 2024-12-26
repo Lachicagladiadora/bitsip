@@ -160,23 +160,23 @@ export const getIngredientsFromDrink = (drink: DrinkType) => {
 
 // #region other functions
 // get array with list name from meal or drink
-type GetNamesList = {
-  objectList: MealType[] | DrinkType[];
-  entryName: "strMeal" | "strDrink";
-};
+// type GetNamesList = {
+//   objectList: MealType[] | DrinkType[];
+//   entryName: "strMeal" | "strDrink";
+// };
 
-export const getNameList = ({
-  objectList,
-  entryName,
-}: GetNamesList): string[] | undefined => {
+export const getNameMealList = (
+  objectList: MealType[]
+): string[] | undefined => {
   try {
     const newList: string[] = [];
     objectList.forEach((c) => {
-      const name = c[entryName];
-      console.log({ name });
+      const name = c["strMeal"];
+      // console.log({ name });
+      if (!name) return;
       newList.push(name);
     });
-    console.log({ newList });
+    // console.log({ newList });
     return newList;
   } catch (error) {
     // #region TO-DO: review with "q", "z","x"
@@ -184,6 +184,24 @@ export const getNameList = ({
   }
 };
 
+export const getNameDrinkList = (
+  objectList: DrinkType[]
+): string[] | undefined => {
+  try {
+    const newList: string[] = [];
+    objectList.forEach((c) => {
+      const name = c["strDrink"];
+      if (!name) return;
+      // console.log({ name });
+      newList.push(name);
+    });
+    // console.log({ newList });
+    return newList;
+  } catch (error) {
+    // #region TO-DO: review with "q", "z","x"
+    console.error({ error });
+  }
+};
 // type GetCapitalizeStringInput = { string: string };
 
 // export const getCapitalizeString = ({ string }: GetCapitalizeStringInput) => {

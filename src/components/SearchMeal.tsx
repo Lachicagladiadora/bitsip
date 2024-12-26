@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { getMealByFirstLetter, getNameList, getRandomMeal } from "../utils";
+import { getMealByFirstLetter, getNameMealList, getRandomMeal } from "../utils";
 import { MealData, MealType } from "../types";
 
 export const SearchMeal = () => {
@@ -26,11 +26,11 @@ export const SearchMeal = () => {
     if (value.length === 1) {
       setRenderListAutocomplete("Loading");
       const data: MealData = await getMealByFirstLetter(value.charAt(0));
-      const dataList: string[] | null =
-        getNameList({
-          objectList: data.meals,
-          entryName: "strMeal",
-        }) ?? null;
+      const dataList = getNameMealList(data.meals);
+      // getNameList({
+      //   objectList: data.meals,
+      //   entryName: "strMeal",
+      // }) ?? null;
       if (!dataList) return;
       setRenderListAutocomplete(dataList);
       setListAutocomplete(dataList);

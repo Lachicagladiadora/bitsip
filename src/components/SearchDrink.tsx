@@ -1,18 +1,19 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { getDrinkByFirstLetter, getNameList, getRandomDrink } from "../utils";
+import {
+  getDrinkByFirstLetter,
+  getNameDrinkList,
+  getRandomDrink,
+} from "../utils";
 import { DrinkData, DrinkType } from "../types";
 
 export const SearchDrink = () => {
   const [proposedDrink, setProposedDrink] = useState<DrinkType | null>(null);
   const [querySearch, setQuerySearch] = useState("");
-  const [listAutocomplete, setListAutocomplete] = useState<string[] | null>(
-    null
-  );
-  const [renderListAutocomplete, setRenderListAutocomplete] = useState<
-    string[] | null | "Loading"
-  >(listAutocomplete);
+  const [drinks, setDrinks] = useState<string[]>([]);
+  const [filteredDrinks, setFilteredDrinks] = useState<string[]>(drinks);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,50 +22,43 @@ export const SearchDrink = () => {
     setProposedDrink(data);
   };
 
-  const listDrinkByLetter = async (value: string) => {
-    if (!value) return;
-    if (value.length === 1) {
-      setRenderListAutocomplete("Loading");
-      const data: DrinkData = await getDrinkByFirstLetter(value);
-      const dataList: string[] | null =
-        getNameList({
-          objectList: data.drinks,
-          entryName: "strDrink",
-        }) ?? null;
-      if (!dataList) return;
-      setRenderListAutocomplete(dataList);
-      setListAutocomplete(dataList);
-      console.log({ data, dataList, value });
+  const onSearchDrink = async (e: ChangeEvent<HTMLInputElement>) => {
+    try {
+      console.log(e.target.value);
+      setIsLoading(true);
+      const queryCurrent = e.target.value;
+      console.log({ queryCurrent });
+      setQuerySearch(queryCurrent);
+      if (queryCurrent.length === 0) {
+        setDrinks([]);
+        setFilteredDrinks([]);
+        setIsLoading(false);
+        return;
+      }
+      if (queryCurrent.length === 1) {
+        const data: DrinkData = await getDrinkByFirstLetter(queryCurrent);
+        const dataList = getNameDrinkList(data.drinks) ?? [];
+        setFilteredDrinks(dataList);
+        setDrinks(dataList);
+        setIsLoading(false);
+        return;
+      }
+      console.log({ renderListAutocomplete: filteredDrinks });
+      const newList = drinks.filter((c) =>
+        c.toLowerCase().includes(queryCurrent.toLowerCase())
+      );
+      console.log({ newList });
+      setFilteredDrinks(newList);
+      setIsLoading(false);
+    } catch (error) {
+      console.error({ error });
+      setIsLoading(false);
     }
-
-    // if (!listAutocomplete) return;
-    // console.log({ listAutocomplete, renderListAutocomplete });
-    // const updateList: string[] = listAutocomplete.filter((c) =>
-    //   c.startsWith(value)
-    // );
-    // setRenderListAutocomplete(updateList);
-    // console.log({ value, listAutocomplete, renderListAutocomplete });
-
-    // return dataList
   };
-
-  const onSearchMeal = async (e: ChangeEvent<HTMLInputElement>) => {
-    const queryCurrent = e.target.value;
-    setQuerySearch(queryCurrent);
-    if (queryCurrent.length <= 1) {
-      await listDrinkByLetter(queryCurrent);
-      return;
-    }
-    // #region TO-DO
-    // const queryAutocomplete = queryCurrent
-    // const firstWord = getCapitalizeString({ string: queryCurrent });
-    // console.log({ firstWord, listAutocomplete });
-    // const updateList = listAutocomplete?.filter((c) =>
-    //   c.startsWith(getCapitalizeString({ string: queryCurrent }))
-    // );
-    // console.log({ updateList });
-    // setRenderListAutocomplete(updateList ?? null);
-  };
+  console.log({
+    filteredDrinks: filteredDrinks,
+    drinks: drinks,
+  });
 
   useEffect(() => {
     randomDrink();
@@ -76,13 +70,10 @@ export const SearchDrink = () => {
         <input
           type="text"
           value={querySearch}
-          onChange={onSearchMeal}
+          onChange={onSearchDrink}
           placeholder={`${
             proposedDrink ? proposedDrink.strDrink : "Write a drink name"
           }`}
-          // # TO-DO
-          // add event to key for select a option in renderListAutocomplete
-          // onKeyDown={e=>}
           className="input"
         />
         <button className="size-6" onClick={() => navigate(`${querySearch}`)}>
@@ -90,11 +81,11 @@ export const SearchDrink = () => {
         </button>
         {querySearch && (
           <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
-            {!renderListAutocomplete && <p>Not found</p>}
-            {renderListAutocomplete === "Loading" && <p>Loading...</p>}
-            {renderListAutocomplete &&
-              typeof renderListAutocomplete !== "string" &&
-              renderListAutocomplete.map((c, i) => (
+            {!filteredDrinks && !isLoading && <p>Not found</p>}
+            {!filteredDrinks && isLoading && <p>Loading...</p>}
+            {filteredDrinks &&
+              !isLoading &&
+              filteredDrinks.map((c, i) => (
                 <li
                   key={i}
                   className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray line-clamp-1"

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DrinkType } from "../types";
+import { DrinkType, Ingredient } from "../types";
 import { responseDrink } from "../constants";
-import { getDrinkByName, getStringList } from "../utils";
+import { getDrinkByName, getIngredientsFromDrink } from "../utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export const Drink = () => {
   const [currentDrink, setCurrentDrink] = useState<DrinkType | null>(null);
-  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
-  const [measureList, setMeasureList] = useState<string[]>([]);
+  const [ingredientsList, setIngredientsList] = useState<
+    Ingredient[] | undefined
+  >([]);
 
   const { drink } = useParams<string>();
 
@@ -24,18 +25,10 @@ export const Drink = () => {
   }, [drink]);
 
   useEffect(() => {
-    const listIngredient: string[] =
-      getStringList({
-        object: currentDrink,
-        entry: "strIngredient",
-      }) ?? [];
-    setIngredientsList(listIngredient);
-    const listMeasure: string[] =
-      getStringList({
-        object: currentDrink,
-        entry: "strMeasure",
-      }) ?? [];
-    setMeasureList(listMeasure);
+    if (!currentDrink) return;
+
+    const ingredients = getIngredientsFromDrink(currentDrink);
+    setIngredientsList(ingredients);
   }, [currentDrink]);
 
   return (
@@ -55,24 +48,26 @@ export const Drink = () => {
           </header>
           <main className="w-full flex flex-col items-center justify-center gap-4">
             {/* Ingredients */}
-            <section className="w-full flex">
-              <div className="flex-1">
-                <h3 className="font-bold text-lg">Ingredients</h3>
-                <ol className="list-inside list-disc">
-                  {ingredientsList.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
-                </ol>
-              </div>
-              <div className="w-1/2 md:w-1/3">
-                <h3 className="font-bold text-lg">Quantities</h3>
-                <ul>
-                  {measureList.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
-                </ul>
-              </div>
-            </section>
+            {ingredientsList && (
+              <section className="w-full flex">
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg">Ingredients</h3>
+                  <ol className="list-inside list-disc">
+                    {ingredientsList.map((c, i) => (
+                      <li key={i}>{c.strIngredient}</li>
+                    ))}
+                  </ol>
+                </div>
+                <div className="w-1/2 md:w-1/3">
+                  <h3 className="font-bold text-lg">Quantities</h3>
+                  <ul>
+                    {ingredientsList.map((c, i) => (
+                      <li key={i}>{c.strMeasure}</li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
             {/* Instructions */}
             <section className="w-full">
               <h3 className="font-bold text-lg">Instructions</h3>

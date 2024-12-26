@@ -1,4 +1,10 @@
-import { DrinkType, MealType } from "./types";
+import {
+  DrinkType,
+  Ingredient,
+  KeyDrinkTypeIngredient,
+  KeyMealTypeIngredient,
+  MealType,
+} from "./types";
 
 // pure functions
 
@@ -11,7 +17,7 @@ export const getRandomMeal = async () => {
 
     const randomMeal = await response.json();
     const data = randomMeal["meals"][0];
-    console.log({ randomMeal: data });
+    // console.log({ randomMeal: data });
 
     return data;
   } catch (error) {
@@ -26,7 +32,7 @@ export const getRandomDrink = async () => {
     );
     const randomDrink = await response.json();
     const data = randomDrink["drinks"][0];
-    console.log({ randomDrink: data });
+    // console.log({ randomDrink: data });
 
     return data;
   } catch (error) {
@@ -41,7 +47,7 @@ export const getMealByName = async (mealName: string) => {
     );
     const newMeal = await response.json();
     const data: MealType = newMeal["meals"][0];
-    console.log({ mealByName: data });
+    // console.log({ mealByName: data });
     return data;
   } catch (error) {
     console.error({ error });
@@ -55,7 +61,7 @@ export const getDrinkByName = async (drinkName: string) => {
     );
     const newDrink = await response.json();
     const data = newDrink["drinks"][0];
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.error({ error });
@@ -86,27 +92,70 @@ export const getDrinkByFirstLetter = async (letter: string) => {
   }
 };
 
-// get a array according number in the final to property object
-
-type GetStringListInput = {
-  object: MealType | DrinkType | null;
-  entry: string;
+type GetIngredientMealInput = {
+  [key in KeyMealTypeIngredient]: string | null;
+} & {
+  [key in string]: string | null;
 };
 
-export const getStringList = ({ object, entry }: GetStringListInput) => {
+const getIngredientMeal = (object: GetIngredientMealInput) => {
   try {
-    if (!object || !entry) return;
-    const list: string[] = [];
+    if (!object) return;
+    const list: Ingredient[] = [];
     for (let index = 1; index < 20; index++) {
-      const property: string = entry + index.toString();
-      const elementList: string = object[property];
-      if (!elementList) return list;
-      list.push(elementList);
-      console.log({ list });
+      const propertyIngredient: string = "strIngredient" + index.toString();
+      const propertyMeasure: string = "strMeasure" + index.toString();
+      const ingredient = object[propertyIngredient];
+      const measure = object[propertyMeasure];
+
+      if (!ingredient || !measure) return list;
+      const newIngredient: Ingredient = {
+        strIngredient: ingredient,
+        strMeasure: measure,
+      };
+      list.push(newIngredient);
     }
   } catch (error) {
     console.error({ error });
   }
+};
+
+type GetIngredientDinkInput = {
+  [key in KeyDrinkTypeIngredient]: string | null;
+} & {
+  [key in string]: string | null;
+};
+
+export const getIngredientDink = (object: GetIngredientDinkInput) => {
+  try {
+    if (!object) return;
+    const list: Ingredient[] = [];
+    for (let index = 1; index < 20; index++) {
+      const propertyIngredient: string = "strIngredient" + index.toString();
+      const propertyMeasure: string = "strMeasure" + index.toString();
+      const ingredient = object[propertyIngredient];
+      const measure = object[propertyMeasure];
+
+      if (!ingredient || !measure) return list;
+      const newIngredient: Ingredient = {
+        strIngredient: ingredient,
+        strMeasure: measure,
+      };
+      list.push(newIngredient);
+    }
+  } catch (error) {
+    console.error({ error });
+  }
+};
+
+export const getIngredientsFromMeal = (meal: MealType) => {
+  const ingredients = getIngredientMeal(meal);
+  return ingredients;
+};
+
+export const getIngredientsFromDrink = (drink: DrinkType) => {
+  const ingredients = getIngredientDink(drink);
+  return ingredients;
 };
 
 // #region other functions
@@ -124,6 +173,7 @@ export const getNameList = ({
     const newList: string[] = [];
     objectList.forEach((c) => {
       const name = c[entryName];
+      console.log({ name });
       newList.push(name);
     });
     console.log({ newList });

@@ -34,7 +34,7 @@ export const SearchMeal = () => {
       if (!dataList) return;
       setRenderListAutocomplete(dataList);
       setListAutocomplete(dataList);
-      console.log({ data, dataList, value });
+      // console.log({ data, dataList, value });
     }
 
     // if (!listAutocomplete) return;
@@ -90,7 +90,7 @@ export const SearchMeal = () => {
         </button>
         {querySearch && (
           <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
-            {!renderListAutocomplete && <p>Not found</p>}
+            {renderListAutocomplete === null && <p>Not found</p>}
             {renderListAutocomplete === "Loading" && <p>Loading...</p>}
             {renderListAutocomplete &&
               typeof renderListAutocomplete !== "string" &&

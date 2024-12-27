@@ -81,7 +81,7 @@ export const SearchDrink = () => {
         </button>
         {querySearch && (
           <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
-            {!filteredDrinks && !isLoading && <p>Not found</p>}
+            {filteredDrinks.length === 0 && !isLoading && <p>Not found</p>}
             {!filteredDrinks && isLoading && <p>Loading...</p>}
             {filteredDrinks &&
               !isLoading &&

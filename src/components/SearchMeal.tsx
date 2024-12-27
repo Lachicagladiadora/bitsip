@@ -7,12 +7,9 @@ import { MealData, MealType } from "../types";
 export const SearchMeal = () => {
   const [proposedMeal, setProposedMeal] = useState<MealType | null>(null);
   const [querySearch, setQuerySearch] = useState("");
-  const [listAutocomplete, setListAutocomplete] = useState<string[] | null>(
-    null
-  );
-  const [renderListAutocomplete, setRenderListAutocomplete] = useState<
-    string[] | null | "Loading"
-  >(listAutocomplete);
+  const [meals, setMeals] = useState<string[]>([]);
+  const [filteredMeals, setFilteredMeals] = useState<string[]>(meals);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,49 +18,34 @@ export const SearchMeal = () => {
     setProposedMeal(data);
   };
 
-  const listMealByLetter = async (value: string) => {
-    if (!value) return;
-    if (value.length === 1) {
-      setRenderListAutocomplete("Loading");
-      const data: MealData = await getMealByFirstLetter(value.charAt(0));
-      const dataList = getNameMealList(data.meals);
-      // getNameList({
-      //   objectList: data.meals,
-      //   entryName: "strMeal",
-      // }) ?? null;
-      if (!dataList) return;
-      setRenderListAutocomplete(dataList);
-      setListAutocomplete(dataList);
-      // console.log({ data, dataList, value });
-    }
-
-    // if (!listAutocomplete) return;
-    // console.log({ listAutocomplete, renderListAutocomplete });
-    // const updateList: string[] = listAutocomplete.filter((c) =>
-    //   c.startsWith(value)
-    // );
-    // setRenderListAutocomplete(updateList);
-    // console.log({ value, listAutocomplete, renderListAutocomplete });
-
-    // return dataList
-  };
-
   const onSearchMeal = async (e: ChangeEvent<HTMLInputElement>) => {
-    const queryCurrent = e.target.value;
-    setQuerySearch(queryCurrent);
-    if (queryCurrent.length <= 1) {
-      await listMealByLetter(queryCurrent);
-      return;
+    try {
+      setIsLoading(true);
+      const queryCurrent = e.target.value;
+      setQuerySearch(queryCurrent);
+      if (queryCurrent.length === 0) {
+        setMeals([]);
+        setFilteredMeals([]);
+        setIsLoading(false);
+        return;
+      }
+      if (queryCurrent.length === 1) {
+        const data: MealData = await getMealByFirstLetter(queryCurrent);
+        const dataList = getNameMealList(data.meals) ?? [];
+        setFilteredMeals(dataList);
+        setMeals(dataList);
+        setIsLoading(false);
+        return;
+      }
+      const newList = meals.filter((c) =>
+        c.toLowerCase().includes(queryCurrent.toLowerCase())
+      );
+      setFilteredMeals(newList);
+      setIsLoading(false);
+    } catch (error) {
+      console.error({ error });
+      setIsLoading(false);
     }
-    // #region TO-DO
-    // const queryAutocomplete = queryCurrent
-    // const firstWord = getCapitalizeString({ string: queryCurrent });
-    // console.log({ firstWord, listAutocomplete });
-    // const updateList = listAutocomplete?.filter((c) =>
-    //   c.startsWith(getCapitalizeString({ string: queryCurrent }))
-    // );
-    // console.log({ updateList });
-    // setRenderListAutocomplete(updateList ?? null);
   };
 
   useEffect(() => {
@@ -90,11 +72,11 @@ export const SearchMeal = () => {
         </button>
         {querySearch && (
           <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
-            {renderListAutocomplete === null && <p>Not found</p>}
-            {renderListAutocomplete === "Loading" && <p>Loading...</p>}
-            {renderListAutocomplete &&
-              typeof renderListAutocomplete !== "string" &&
-              renderListAutocomplete.map((c, i) => (
+            {filteredMeals.length === 0 && !isLoading && <p>Not found</p>}
+            {!filteredMeals && isLoading && <p>Loading...</p>}
+            {filteredMeals &&
+              !isLoading &&
+              filteredMeals.map((c, i) => (
                 <li
                   key={i}
                   className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray line-clamp-1"

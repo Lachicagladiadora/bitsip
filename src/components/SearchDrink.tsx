@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import {
   getDrinkByFirstLetter,
   getNameDrinkList,
@@ -16,11 +16,6 @@ export const SearchDrink = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const randomDrink = async () => {
-    const data = await getRandomDrink();
-    setProposedDrink(data);
-  };
 
   const onSearchDrink = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
@@ -53,12 +48,20 @@ export const SearchDrink = () => {
   };
 
   useEffect(() => {
-    randomDrink();
+    try {
+      const randomDrink = async () => {
+        const data = await getRandomDrink();
+        setProposedDrink(data);
+      };
+      randomDrink();
+    } catch (error) {
+      console.error({ error });
+    }
   }, []);
 
   return (
     <div className="w-full h-full min-w-[310px] max-w-[500px] p-4 flex flex-col gap-8 items-center justify-center">
-      <div className="w-full flex gap-2 items-center justify-center relative">
+      <div className="relative w-full flex gap-2 items-center justify-center">
         <input
           type="text"
           value={querySearch}
@@ -68,13 +71,17 @@ export const SearchDrink = () => {
           }`}
           className="input"
         />
-        <button className="size-6" onClick={() => navigate(`${querySearch}`)}>
+        <button className="size-6" onClick={() => navigate(querySearch)}>
           <MagnifyingGlassIcon />
         </button>
         {querySearch && (
-          <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
+          <ul className="absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
             {filteredDrinks.length === 0 && !isLoading && <p>Not found</p>}
-            {!filteredDrinks && isLoading && <p>Loading...</p>}
+            {isLoading && (
+              <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
+                Loading...
+              </p>
+            )}
             {filteredDrinks &&
               !isLoading &&
               filteredDrinks.map((c, i) => (
@@ -97,10 +104,13 @@ export const SearchDrink = () => {
       {proposedDrink && (
         <section className="w-full flex flex-col items-center justify-center gap-8">
           <div className="size-full rounded-lg overflow-hidden">
-            <img
-              src={`${proposedDrink.strDrinkThumb}`}
-              alt={`${proposedDrink.strDrinkThumb}`}
-            />
+            {proposedDrink.strDrinkThumb && (
+              <img
+                src={proposedDrink.strDrinkThumb}
+                alt={proposedDrink.strDrink ?? "Drink image"}
+              />
+            )}
+            {!proposedDrink.strDrinkThumb && <PhotoIcon />}
           </div>
           <button
             onClick={() => navigate(`${proposedDrink.strDrink}`)}

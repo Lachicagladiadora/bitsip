@@ -5,15 +5,15 @@ export const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-full p-7 max-w-[600px] flex flex-col gap-10">
+    <div className="w-full h-dvh p-7 max-w-[600px] flex flex-col gap-10 items-center justify-center">
       <p className="font-[900] text-3xl text-center md:text-4xl">
         Do you need to prepare a{" "}
         <span className="uppercase text-orange">meal</span> or prepare a{" "}
         <span className="uppercase text-aquamarine">drink</span> and you don't
         know what or how to{" "}
-        <span className="uppercase text-yellow relative ">
+        <span className="relative uppercase text-yellow">
           surprise
-          <SparklesIcon className="absolute -top-[30%] left-[99%] size-4" />
+          <SparklesIcon className="absolute -top-[30%] left-[100%] size-4" />
         </span>{" "}
         your palate?
       </p>

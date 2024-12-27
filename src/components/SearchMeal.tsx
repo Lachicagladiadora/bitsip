@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { getMealByFirstLetter, getNameMealList, getRandomMeal } from "../utils";
 import { MealData, MealType } from "../types";
 
@@ -12,11 +12,6 @@ export const SearchMeal = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const randomMeal = async () => {
-    const data = await getRandomMeal();
-    setProposedMeal(data);
-  };
 
   const onSearchMeal = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
@@ -49,12 +44,20 @@ export const SearchMeal = () => {
   };
 
   useEffect(() => {
-    randomMeal();
+    try {
+      const randomMeal = async () => {
+        const data = await getRandomMeal();
+        setProposedMeal(data);
+      };
+      randomMeal();
+    } catch (error) {
+      console.error({ error });
+    }
   }, []);
 
   return (
     <div className="w-full h-full min-w-[310px] max-w-[500px] p-4 flex flex-col gap-8 items-center justify-center">
-      <div className="w-full flex gap-2 items-center justify-center relative">
+      <div className="relative w-full flex gap-2 items-center justify-center">
         <input
           type="text"
           value={querySearch}
@@ -62,18 +65,19 @@ export const SearchMeal = () => {
           placeholder={`${
             proposedMeal ? proposedMeal.strMeal : "Write a meal name"
           }`}
-          // # TO-DO
-          // add event to key for select a option in renderListAutocomplete
-          // onKeyDown={e=>}
           className="input"
         />
-        <button className="size-6" onClick={() => navigate(`${querySearch}`)}>
+        <button className="size-6" onClick={() => navigate(querySearch)}>
           <MagnifyingGlassIcon />
         </button>
         {querySearch && (
-          <ul className="max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] absolute top-[100%] left-[6px] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
+          <ul className="absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
             {filteredMeals.length === 0 && !isLoading && <p>Not found</p>}
-            {!filteredMeals && isLoading && <p>Loading...</p>}
+            {isLoading && (
+              <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
+                Loading...
+              </p>
+            )}
             {filteredMeals &&
               !isLoading &&
               filteredMeals.map((c, i) => (
@@ -96,10 +100,13 @@ export const SearchMeal = () => {
       {proposedMeal && (
         <section className="w-full flex flex-col items-center justify-center gap-8">
           <div className="size-full rounded-lg overflow-hidden">
-            <img
-              src={`${proposedMeal.strMealThumb}`}
-              alt={`${proposedMeal.strMealThumb}`}
-            />
+            {proposedMeal.strMealThumb && (
+              <img
+                src={proposedMeal.strMealThumb}
+                alt={proposedMeal.strMeal ?? "Meal image"}
+              />
+            )}
+            {!proposedMeal.strMealThumb && <PhotoIcon />}
           </div>
           <button
             onClick={() => navigate(`${proposedMeal.strMeal}`)}

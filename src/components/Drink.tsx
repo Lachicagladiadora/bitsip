@@ -7,48 +7,54 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export const Drink = () => {
   const [currentDrink, setCurrentDrink] = useState<DrinkType | null>(null);
-  const [ingredientsList, setIngredientsList] = useState<
-    Ingredient[] | undefined
-  >([]);
+  const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { drink } = useParams<string>();
 
-  const newDrink = async (drinkName: string) => {
-    if (!drinkName) setCurrentDrink(responseDrink);
-    const recipe = await getDrinkByName(drinkName);
-    setCurrentDrink(recipe ?? null);
-  };
-
   // UseEffects
   useEffect(() => {
-    newDrink(drink ?? "");
+    try {
+      setIsLoading(true);
+      const newDrink = async (drinkName: string) => {
+        if (!drinkName) setCurrentDrink(responseDrink);
+        const recipe = await getDrinkByName(drinkName);
+        setCurrentDrink(recipe ?? null);
+      };
+      newDrink(drink ?? "");
+      setIsLoading(false);
+    } catch (error) {
+      console.error({ error });
+      setIsLoading(false);
+    }
   }, [drink]);
 
   useEffect(() => {
-    if (!currentDrink) return;
+    try {
+      if (!currentDrink) return;
 
-    const ingredients = getIngredientsFromDrink(currentDrink);
-    setIngredientsList(ingredients);
+      const ingredients = getIngredientsFromDrink(currentDrink) ?? [];
+      setIngredientsList(ingredients);
+    } catch (error) {
+      console.log({ error });
+    }
   }, [currentDrink]);
 
   return (
     <div className="w-full h-full max-w-[800px] p-4 flex flex-col items-center justify-center gap-6">
-      {!currentDrink && (
-        <p>
-          <span>{drink}</span>
-        </p>
-      )}
-      {currentDrink && (
+      {!currentDrink && !isLoading && <p>Loading {drink} ...</p>}
+      {!currentDrink && isLoading && <p>Loading {drink} ...</p>}
+      {currentDrink && !isLoading && (
         <>
           <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
             {/* Title */}
             <h2 className="flex-1 font-WindSong text-xl text-center font-bold md:text-2xl lg:text-3xl">
-              {currentDrink?.strDrink}
+              {currentDrink.strDrink}
             </h2>
           </header>
           <main className="w-full flex flex-col items-center justify-center gap-4">
             {/* Ingredients */}
-            {ingredientsList && (
+            {ingredientsList.length > 0 && (
               <section className="w-full flex">
                 <div className="flex-1">
                   <h3 className="font-bold text-lg">Ingredients</h3>
@@ -72,18 +78,21 @@ export const Drink = () => {
             <section className="w-full">
               <h3 className="font-bold text-lg">Instructions</h3>
               <p className="font-light indent-10 whitespace-pre-line">
-                {currentDrink?.strInstructions}
+                {currentDrink.strInstructions}
               </p>
             </section>
             {/* Image */}
-            <div className="flex-1 sm:w-1/2 md:h-[320px] relative  rounded-lg shadow-md overflow-hidden">
-              {currentDrink && currentDrink.strDrinkThumb ? (
-                <img src={currentDrink.strDrinkThumb} />
+            <div className="relative flex-1 sm:w-1/2 md:h-[320px] rounded-lg shadow-md overflow-hidden">
+              {currentDrink.strDrinkThumb ? (
+                <img
+                  src={currentDrink.strDrinkThumb}
+                  alt={currentDrink.strDrinkThumb ?? "Drink image"}
+                />
               ) : (
                 <PhotoIcon className="h-full w-full" />
               )}
-              <div className="px-2 py-1 rounded-e-md absolute top-2 left-0 text-xs bg-obscure text-blank dark:bg-blank dark:text-obscure">
-                {currentDrink?.strCategory}
+              <div className="absolute top-2 left-0 px-2 py-1 rounded-e-md text-xs bg-obscure text-blank dark:bg-blank dark:text-obscure">
+                {currentDrink.strCategory}
               </div>
             </div>
           </main>

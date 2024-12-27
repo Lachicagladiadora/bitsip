@@ -8,7 +8,7 @@ import { Drink } from "./components/Drink";
 
 function App() {
   return (
-    <div className="w-full h-full flex-1 flex flex-col items-center justify-between">
+    <div className="w-full h-dvh flex flex-col items-center justify-between">
       <Header />
       <Outlet />
 

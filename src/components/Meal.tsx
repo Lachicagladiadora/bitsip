@@ -7,59 +7,68 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export const Meal = () => {
   const [currentMeal, setCurrentMeal] = useState<MealType | null>(null);
-  const [ingredientsList, setIngredientsList] = useState<
-    Ingredient[] | undefined
-  >([]);
+  const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { meal } = useParams<string>();
 
-  const newMeal = async (mealName: string) => {
-    if (!mealName) setCurrentMeal(responseMeal);
-    const recipe = await getMealByName(mealName);
-    setCurrentMeal(recipe ?? null);
-  };
-
   // UseEffects
   useEffect(() => {
-    newMeal(meal ?? "");
+    try {
+      setIsLoading(true);
+      const newMeal = async (mealName: string) => {
+        if (!mealName) setCurrentMeal(responseMeal);
+        const recipe = await getMealByName(mealName);
+        setCurrentMeal(recipe ?? null);
+      };
+      newMeal(meal ?? "");
+      setIsLoading(false);
+    } catch (error) {
+      console.log({ error });
+      setIsLoading(false);
+    }
   }, [meal]);
 
   useEffect(() => {
-    if (!currentMeal) return;
+    try {
+      if (!currentMeal) return;
 
-    const ingredients = getIngredientsFromMeal(currentMeal);
-    setIngredientsList(ingredients);
+      const ingredients = getIngredientsFromMeal(currentMeal) ?? [];
+      setIngredientsList(ingredients);
+    } catch (error) {
+      console.error({ error });
+    }
   }, [currentMeal]);
 
   return (
     <div className="w-full h-full max-w-[800px] p-4 flex flex-col items-center justify-center gap-6">
-      {!currentMeal && (
-        <p>
-          <span>{meal}</span>
-        </p>
-      )}
-      {currentMeal && (
+      {!currentMeal && !isLoading && <p>Not found {meal} </p>}
+      {!currentMeal && isLoading && <p>Loading {meal} ...</p>}
+      {currentMeal && !isLoading && (
         <>
           <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
             {/* Image */}
-            <div className="size-48 sm:w-1/2 md:h-[320px] relative bg-center bg-cover rounded-lg shadow-md overflow-hidden">
-              {currentMeal && currentMeal.strMealThumb ? (
-                <img src={currentMeal.strMealThumb} />
+            <div className="relative size-48 sm:w-1/2 md:h-[320px] bg-center bg-cover rounded-lg shadow-md overflow-hidden">
+              {currentMeal.strMealThumb ? (
+                <img
+                  src={currentMeal.strMealThumb}
+                  alt={currentMeal.strMeal ?? "Meal image"}
+                />
               ) : (
                 <PhotoIcon className="h-full w-full" />
               )}
-              <div className="px-2 py-1 rounded-e-md absolute top-2 left-0 text-xs bg-obscure text-blank dark:bg-blank dark:text-obscure">
-                {currentMeal?.strCategory}
+              <div className="absolute top-2 left-0 px-2 py-1 rounded-e-md text-xs bg-obscure text-blank dark:bg-blank dark:text-obscure">
+                {currentMeal.strCategory}
               </div>
             </div>
             {/* Title */}
             <h2 className="flex-1 font-WindSong text-xl text-center font-bold md:text-2xl lg:text-3xl">
-              {currentMeal?.strMeal}
+              {currentMeal.strMeal}
             </h2>
           </header>
           <main className="w-full flex flex-col gap-4">
             {/* Ingredients */}
-            {ingredientsList && (
+            {ingredientsList.length > 0 && (
               <section className="w-full flex">
                 <div className="flex-1">
                   <h3 className="font-bold text-lg">Ingredients</h3>

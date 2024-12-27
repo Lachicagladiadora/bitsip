@@ -24,10 +24,8 @@ export const SearchDrink = () => {
 
   const onSearchDrink = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
-      console.log(e.target.value);
       setIsLoading(true);
       const queryCurrent = e.target.value;
-      console.log({ queryCurrent });
       setQuerySearch(queryCurrent);
       if (queryCurrent.length === 0) {
         setDrinks([]);
@@ -43,11 +41,9 @@ export const SearchDrink = () => {
         setIsLoading(false);
         return;
       }
-      console.log({ renderListAutocomplete: filteredDrinks });
       const newList = drinks.filter((c) =>
         c.toLowerCase().includes(queryCurrent.toLowerCase())
       );
-      console.log({ newList });
       setFilteredDrinks(newList);
       setIsLoading(false);
     } catch (error) {
@@ -55,10 +51,6 @@ export const SearchDrink = () => {
       setIsLoading(false);
     }
   };
-  console.log({
-    filteredDrinks: filteredDrinks,
-    drinks: drinks,
-  });
 
   useEffect(() => {
     randomDrink();

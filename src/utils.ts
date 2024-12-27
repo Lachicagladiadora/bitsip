@@ -14,11 +14,8 @@ export const getRandomMeal = async () => {
     const response = await fetch(
       "https://www.themealdb.com/api/json/v1/1/random.php"
     );
-
     const randomMeal = await response.json();
     const data = randomMeal["meals"][0];
-    // console.log({ randomMeal: data });
-
     return data;
   } catch (error) {
     console.error({ error });
@@ -32,8 +29,6 @@ export const getRandomDrink = async () => {
     );
     const randomDrink = await response.json();
     const data = randomDrink["drinks"][0];
-    // console.log({ randomDrink: data });
-
     return data;
   } catch (error) {
     console.error({ error });
@@ -47,7 +42,6 @@ export const getMealByName = async (mealName: string) => {
     );
     const newMeal = await response.json();
     const data: MealType = newMeal["meals"][0];
-    // console.log({ mealByName: data });
     return data;
   } catch (error) {
     console.error({ error });
@@ -61,7 +55,6 @@ export const getDrinkByName = async (drinkName: string) => {
     );
     const newDrink = await response.json();
     const data = newDrink["drinks"][0];
-    // console.log(data);
     return data;
   } catch (error) {
     console.error({ error });
@@ -159,11 +152,6 @@ export const getIngredientsFromDrink = (drink: DrinkType) => {
 };
 
 // #region other functions
-// get array with list name from meal or drink
-// type GetNamesList = {
-//   objectList: MealType[] | DrinkType[];
-//   entryName: "strMeal" | "strDrink";
-// };
 
 export const getNameMealList = (
   objectList: MealType[]
@@ -172,14 +160,11 @@ export const getNameMealList = (
     const newList: string[] = [];
     objectList.forEach((c) => {
       const name = c["strMeal"];
-      // console.log({ name });
       if (!name) return;
       newList.push(name);
     });
-    // console.log({ newList });
     return newList;
   } catch (error) {
-    // #region TO-DO: review with "q", "z","x"
     console.error({ error });
   }
 };
@@ -192,28 +177,10 @@ export const getNameDrinkList = (
     objectList.forEach((c) => {
       const name = c["strDrink"];
       if (!name) return;
-      // console.log({ name });
       newList.push(name);
     });
-    // console.log({ newList });
     return newList;
   } catch (error) {
-    // #region TO-DO: review with "q", "z","x"
     console.error({ error });
   }
 };
-// type GetCapitalizeStringInput = { string: string };
-
-// export const getCapitalizeString = ({ string }: GetCapitalizeStringInput) => {
-//   const arrayString = string.split("");
-//   console.log({ arrayString });
-//   const array = arrayString.map((c) => {
-//     if (connectors.map((article) => article === c)) return c;
-//     const firstLetter = c.slice(0, 1);
-//     const restOfTheWord = c.slice(1);
-//     const word = firstLetter.toLocaleUpperCase() + restOfTheWord;
-//     console.log({ word });
-//     return word;
-//   });
-//   return array[0];
-// };

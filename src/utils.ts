@@ -6,9 +6,7 @@ import {
   MealType,
 } from "./types";
 
-// pure functions
-
-// #region recipes
+// #region RECIPES
 export const getRandomMeal = async (): Promise<MealType | undefined> => {
   try {
     const response = await fetch(
@@ -93,23 +91,25 @@ export const getDrinksByFirstLetter = async (
   }
 };
 
-// region ingredients
+// region INGREDIENTS
 
-type GetIngredientMealInput = {
+type GetIngredientsFromMealInput = {
   [key in KeyMealTypeIngredient]: string | null;
 } & {
   [key in string]: string | null;
 };
 
-const getIngredientMeal = (object: GetIngredientMealInput) => {
+export const getIngredientsFromMeal = (
+  meal: GetIngredientsFromMealInput
+): Ingredient[] | undefined => {
   try {
-    if (!object) return;
+    if (!meal) return;
     const list: Ingredient[] = [];
     for (let index = 1; index < 20; index++) {
       const propertyIngredient: string = "strIngredient" + index.toString();
       const propertyMeasure: string = "strMeasure" + index.toString();
-      const ingredient = object[propertyIngredient];
-      const measure = object[propertyMeasure];
+      const ingredient = meal[propertyIngredient];
+      const measure = meal[propertyMeasure];
 
       if (!ingredient || !measure) return list;
       const newIngredient: Ingredient = {
@@ -118,26 +118,29 @@ const getIngredientMeal = (object: GetIngredientMealInput) => {
       };
       list.push(newIngredient);
     }
+    return list;
   } catch (error) {
     console.error({ error });
   }
 };
 
-type GetIngredientDinkInput = {
+type GetIngredientsFromDrinkInput = {
   [key in KeyDrinkTypeIngredient]: string | null;
 } & {
   [key in string]: string | null;
 };
 
-export const getIngredientDink = (object: GetIngredientDinkInput) => {
+export const getIngredientsFromDrink = (
+  drink: GetIngredientsFromDrinkInput
+): Ingredient[] | undefined => {
   try {
-    if (!object) return;
+    if (!drink) return;
     const list: Ingredient[] = [];
     for (let index = 1; index < 20; index++) {
       const propertyIngredient: string = "strIngredient" + index.toString();
       const propertyMeasure: string = "strMeasure" + index.toString();
-      const ingredient = object[propertyIngredient];
-      const measure = object[propertyMeasure];
+      const ingredient = drink[propertyIngredient];
+      const measure = drink[propertyMeasure];
 
       if (!ingredient || !measure) return list;
       const newIngredient: Ingredient = {
@@ -146,22 +149,13 @@ export const getIngredientDink = (object: GetIngredientDinkInput) => {
       };
       list.push(newIngredient);
     }
+    return list;
   } catch (error) {
     console.error({ error });
   }
 };
 
-export const getIngredientsFromMeal = (meal: MealType) => {
-  const ingredients = getIngredientMeal(meal);
-  return ingredients;
-};
-
-export const getIngredientsFromDrink = (drink: DrinkType) => {
-  const ingredients = getIngredientDink(drink);
-  return ingredients;
-};
-
-// #region NameList
+// #region NAME LIST
 
 export const getNameMealList = (
   objectList: MealType[]

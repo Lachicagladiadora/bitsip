@@ -1,4 +1,4 @@
-export const responseMeal = {
+export const RESPONSE_MEAL = {
   idMeal: "52839",
   strMeal: "Chilli prawn linguine",
   strDrinkAlternate: null,
@@ -56,7 +56,7 @@ export const responseMeal = {
   dateModified: null,
 };
 
-export const responseDrink = {
+export const RESPONSE_DRINK = {
   idDrink: "15567",
   strDrink: "Adam Sunrise",
   strDrinkAlternate: null,

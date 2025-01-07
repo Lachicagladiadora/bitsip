@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DrinkType, Ingredient } from "../types";
-import { responseDrink } from "../constants";
+import { RESPONSE_DRINK } from "../constants";
 import { getDrinkByName, getIngredientsFromDrink } from "../utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 
@@ -17,7 +17,7 @@ export const Drink = () => {
     try {
       setIsLoading(true);
       const newDrink = async (drinkName: string) => {
-        if (!drinkName) setCurrentDrink(responseDrink);
+        if (!drinkName) setCurrentDrink(RESPONSE_DRINK);
         const recipe = await getDrinkByName(drinkName);
         setCurrentDrink(recipe ?? null);
       };

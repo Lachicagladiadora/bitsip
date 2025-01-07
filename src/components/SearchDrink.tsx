@@ -2,11 +2,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import {
-  getDrinkByFirstLetter,
+  getDrinksByFirstLetter,
   getNameDrinkList,
   getRandomDrink,
 } from "../utils";
-import { DrinkData, DrinkType } from "../types";
+import { DrinkType } from "../types";
+import { RESPONSE_DRINK } from "../constants";
 
 export const SearchDrink = () => {
   const [proposedDrink, setProposedDrink] = useState<DrinkType | null>(null);
@@ -29,8 +30,8 @@ export const SearchDrink = () => {
         return;
       }
       if (queryCurrent.length === 1) {
-        const data: DrinkData = await getDrinkByFirstLetter(queryCurrent);
-        const dataList = getNameDrinkList(data.drinks) ?? [];
+        const data = (await getDrinksByFirstLetter(queryCurrent)) ?? [];
+        const dataList = getNameDrinkList(data) ?? [];
         setFilteredDrinks(dataList);
         setDrinks(dataList);
         setIsLoading(false);
@@ -50,7 +51,7 @@ export const SearchDrink = () => {
   useEffect(() => {
     try {
       const randomDrink = async () => {
-        const data = await getRandomDrink();
+        const data = (await getRandomDrink()) ?? RESPONSE_DRINK;
         setProposedDrink(data);
       };
       randomDrink();

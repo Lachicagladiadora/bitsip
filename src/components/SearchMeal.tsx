@@ -1,8 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { getMealByFirstLetter, getNameMealList, getRandomMeal } from "../utils";
-import { MealData, MealType } from "../types";
+import {
+  getMealsByFirstLetter,
+  getNameMealList,
+  getRandomMeal,
+} from "../utils";
+import { MealType } from "../types";
+import { RESPONSE_MEAL } from "../constants";
 
 export const SearchMeal = () => {
   const [proposedMeal, setProposedMeal] = useState<MealType | null>(null);
@@ -25,8 +30,8 @@ export const SearchMeal = () => {
         return;
       }
       if (queryCurrent.length === 1) {
-        const data: MealData = await getMealByFirstLetter(queryCurrent);
-        const dataList = getNameMealList(data.meals) ?? [];
+        const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
+        const dataList = getNameMealList(data) ?? [];
         setFilteredMeals(dataList);
         setMeals(dataList);
         setIsLoading(false);
@@ -46,7 +51,7 @@ export const SearchMeal = () => {
   useEffect(() => {
     try {
       const randomMeal = async () => {
-        const data = await getRandomMeal();
+        const data = (await getRandomMeal()) ?? RESPONSE_MEAL;
         setProposedMeal(data);
       };
       randomMeal();

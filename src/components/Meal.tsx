@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Ingredient, MealType } from "../types";
-import { responseMeal } from "../constants";
+import { RESPONSE_MEAL } from "../constants";
 import { getIngredientsFromMeal, getMealByName } from "../utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 
@@ -17,7 +17,7 @@ export const Meal = () => {
     try {
       setIsLoading(true);
       const newMeal = async (mealName: string) => {
-        if (!mealName) setCurrentMeal(responseMeal);
+        if (!mealName) setCurrentMeal(RESPONSE_MEAL);
         const recipe = await getMealByName(mealName);
         setCurrentMeal(recipe ?? null);
       };

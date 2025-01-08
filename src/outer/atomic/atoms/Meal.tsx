@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Ingredient, MealType } from "../types";
-import { RESPONSE_MEAL } from "../constants";
-import { getIngredientsFromMeal, getMealByName } from "../utils";
+import { Ingredient, MealType } from "../../../inner/types";
+import { RESPONSE_MEAL } from "../../../inner/constants";
 import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { getMealByName } from "../../repository/meals.repository";
+import { getIngredientsFromMeal } from "../../utils";
 
 export const Meal = () => {
   const [currentMeal, setCurrentMeal] = useState<MealType | null>(null);
@@ -75,7 +76,6 @@ export const Meal = () => {
                   <tr>
                     <th className="font-bold text-lg text-left">Ingredients</th>
                     <th className="font-bold text-lg text-left">Quantities</th>
-                    {/* <th>Year</th> */}
                   </tr>
                 </thead>
                 <tbody>

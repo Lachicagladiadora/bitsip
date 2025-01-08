@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DrinkType, Ingredient } from "../types";
-import { RESPONSE_DRINK } from "../constants";
-import { getDrinkByName, getIngredientsFromDrink } from "../utils";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { RESPONSE_DRINK } from "../../../inner/constants";
+import { DrinkType, Ingredient } from "../../../inner/types";
+import { getDrinkByName } from "../../repository/drinks.repository";
+import { getIngredientsFromDrink } from "../../utils";
 
 export const Drink = () => {
   const [currentDrink, setCurrentDrink] = useState<DrinkType | null>(null);
@@ -55,29 +56,35 @@ export const Drink = () => {
           <main className="w-full flex flex-col items-center justify-center gap-4">
             {/* Ingredients */}
             {ingredientsList.length > 0 && (
-              <section className="w-full flex">
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg">Ingredients</h3>
-                  <ol className="list-inside list-disc">
+              <table className="border-none w-full">
+                <thead>
+                  <tr>
+                    <th className="font-bold text-lg text-left">Ingredients</th>
+                    <th className="font-bold text-lg text-left">Quantities</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>
                     {ingredientsList.map((c, i) => (
-                      <li key={i}>{c.strIngredient}</li>
+                      <tr key={i} className="flex items-center gap-2">
+                        <CheckIcon className="h-4 w-4" />
+                        {c.strIngredient}
+                      </tr>
                     ))}
-                  </ol>
-                </div>
-                <div className="w-1/2 md:w-1/3">
-                  <h3 className="font-bold text-lg">Quantities</h3>
-                  <ul>
+                  </td>
+                  <td>
                     {ingredientsList.map((c, i) => (
-                      <li key={i}>{c.strMeasure}</li>
+                      <tr key={i}>{c.strMeasure}</tr>
                     ))}
-                  </ul>
-                </div>
-              </section>
+                  </td>
+                </tbody>
+              </table>
             )}
+
             {/* Instructions */}
             <section className="w-full">
               <h3 className="font-bold text-lg">Instructions</h3>
-              <p className="font-light indent-10 whitespace-pre-line">
+              <p className="font-light whitespace-pre-line">
                 {currentDrink.strInstructions}
               </p>
             </section>

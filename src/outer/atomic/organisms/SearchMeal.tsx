@@ -1,13 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
+
+import { MealType } from "../../../inner/types";
+import { RESPONSE_MEAL } from "../../../inner/constants";
 import {
   getMealsByFirstLetter,
-  getNameMealList,
   getRandomMeal,
-} from "../utils";
-import { MealType } from "../types";
-import { RESPONSE_MEAL } from "../constants";
+} from "../../repository/meals.repository";
+import { getNameMealList } from "../../utils";
 
 export const SearchMeal = () => {
   const [proposedMeal, setProposedMeal] = useState<MealType | null>(null);

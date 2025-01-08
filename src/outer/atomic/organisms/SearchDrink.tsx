@@ -1,13 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, PhotoIcon } from "@heroicons/react/24/outline";
+
+import { DrinkType } from "../../../inner/types";
+import { RESPONSE_DRINK } from "../../../inner/constants";
 import {
   getDrinksByFirstLetter,
-  getNameDrinkList,
   getRandomDrink,
-} from "../utils";
-import { DrinkType } from "../types";
-import { RESPONSE_DRINK } from "../constants";
+} from "../../repository/drinks.repository";
+import { getNameDrinkList } from "../../utils";
 
 export const SearchDrink = () => {
   const [proposedDrink, setProposedDrink] = useState<DrinkType | null>(null);

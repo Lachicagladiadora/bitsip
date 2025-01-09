@@ -1,3 +1,5 @@
+import { Ingredient } from "./types";
+
 export const RESPONSE_MEAL = {
   idMeal: "52839",
   strMeal: "Chilli prawn linguine",
@@ -55,6 +57,61 @@ export const RESPONSE_MEAL = {
   strCreativeCommonsConfirmed: null,
   dateModified: null,
 };
+
+export const MEAL_INGREDIENTS_LIST: Ingredient[] = [
+  {
+    strIngredient: "Linguine Pasta",
+    strMeasure: "280g",
+  },
+  {
+    strIngredient: "Sugar Snap Peas",
+    strMeasure: "200g",
+  },
+  {
+    strIngredient: "Olive Oil",
+    strMeasure: "2 tblsp ",
+  },
+  {
+    strIngredient: "Garlic Clove",
+    strMeasure: "2 cloves chopped",
+  },
+  {
+    strIngredient: "Red Chilli",
+    strMeasure: "1 large",
+  },
+  {
+    strIngredient: "King Prawns",
+    strMeasure: "24 Skinned",
+  },
+  {
+    strIngredient: "Cherry Tomatoes",
+    strMeasure: "12",
+  },
+  {
+    strIngredient: "Basil Leaves",
+    strMeasure: "Handful",
+  },
+  {
+    strIngredient: "Lettuce",
+    strMeasure: "Leaves",
+  },
+  {
+    strIngredient: "Bread",
+    strMeasure: "to serve",
+  },
+  {
+    strIngredient: "Fromage Frais",
+    strMeasure: "2 tbsp",
+  },
+  {
+    strIngredient: "Lime",
+    strMeasure: "Grated Zest of 2",
+  },
+  {
+    strIngredient: "Caster Sugar",
+    strMeasure: "2 tsp",
+  },
+];
 
 export const RESPONSE_DRINK = {
   idDrink: "15567",
@@ -115,6 +172,25 @@ export const RESPONSE_DRINK = {
   strCreativeCommonsConfirmed: "No",
   dateModified: "2016-09-02 11:28:32",
 };
+
+export const DRINK_INGREDIENTS_LIST: Ingredient[] = [
+  {
+    strIngredient: "Vodka",
+    strMeasure: "1/2 ",
+  },
+  {
+    strIngredient: "Lemonade",
+    strMeasure: "1/2 can ",
+  },
+  {
+    strIngredient: "Water",
+    strMeasure: "1/2 ",
+  },
+  {
+    strIngredient: "Sugar",
+    strMeasure: "10 tsp ",
+  },
+];
 
 export const connectors = [
   "the",

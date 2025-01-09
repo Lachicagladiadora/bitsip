@@ -7,25 +7,3 @@
   margin: 0px;
   box-sizing: border-box;
 }
-
-@layer base {
-  /* button { */
-  /* @apply w-full h-[50px] flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl; */
-  /* } */
-  /* h2 {
-    @apply text-xl;
-  } */
-}
-
-@layer components {
-  .btn-meal {
-    @apply w-full h-[50px] align-middle flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl border border-gray bg-grayBlank text-gray hover:bg-orange hover:border-orange hover:text-orangeBlank;
-  }
-  .btn-drink {
-    @apply w-full h-[50px] align-middle flex items-center justify-center rounded-lg uppercase font-[600] text-2xl md:text-3xl border border-gray bg-grayBlank text-gray hover:bg-aquamarine hover:border-aquamarine hover:text-aquamarineBlank;
-  }
-
-  .input {
-    @apply w-full h-10 px-4 py-2 outline-none border border-gray rounded-lg bg-blank dark:bg-obscure flex items-center justify-center placeholder:font-WindSong placeholder:text-xl placeholder:font-bold placeholder:align-text-bottom placeholder:line-clamp-1;
-  }
-}

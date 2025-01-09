@@ -3,8 +3,8 @@ import { Header } from "./outer/atomic/organisms/Header";
 import { Home } from "./outer/atomic/molecules/Home";
 import { SearchMeal } from "./outer/atomic/organisms/SearchMeal";
 import { SearchDrink } from "./outer/atomic/organisms/SearchDrink";
-import { Meal } from "./outer/atomic/atoms/Meal";
-import { Drink } from "./outer/atomic/atoms/Drink";
+import { Meal } from "./outer/atomic/molecules/Meal";
+import { Drink } from "./outer/atomic/molecules/Drink";
 
 function App() {
   return (

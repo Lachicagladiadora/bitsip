@@ -9,6 +9,8 @@ import {
   getRandomDrink,
 } from "../../repository/drinks.repository";
 import { getNameDrinkList } from "../../utils";
+import { Button } from "../atoms/Button";
+import { Input } from "../atoms/Input";
 
 export const SearchDrink = () => {
   const [proposedDrink, setProposedDrink] = useState<DrinkType | null>(null);
@@ -64,14 +66,13 @@ export const SearchDrink = () => {
   return (
     <div className="w-full h-full min-w-[310px] max-w-[500px] p-4 flex flex-col gap-8 items-center justify-center">
       <div className="relative w-full flex gap-2 items-center justify-center">
-        <input
+        <Input
           type="text"
           value={querySearch}
           onChange={onSearchDrink}
           placeholder={`${
             proposedDrink ? proposedDrink.strDrink : "Write a drink name"
           }`}
-          className="input"
         />
         <button className="size-6" onClick={() => navigate(querySearch)}>
           <MagnifyingGlassIcon />
@@ -114,12 +115,12 @@ export const SearchDrink = () => {
             )}
             {!proposedDrink.strDrinkThumb && <PhotoIcon />}
           </div>
-          <button
+          <Button
             onClick={() => navigate(`${proposedDrink.strDrink}`)}
-            className="btn-drink"
+            _variant="drink"
           >
             Get recipe
-          </button>
+          </Button>
         </section>
       )}
     </div>

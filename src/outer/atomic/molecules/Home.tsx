@@ -1,5 +1,6 @@
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../atoms/Button";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -18,22 +19,22 @@ export const Home = () => {
         your palate?
       </p>
       <div className="w-full flex items-center justify-evenly gap-10">
-        <button
+        <Button
           onClick={() => {
             navigate("search-meal");
           }}
-          className="btn-meal"
+          _variant="meal"
         >
           Meal
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             navigate("search-drink");
           }}
-          className="btn-drink"
+          _variant="drink"
         >
           Drink
-        </button>
+        </Button>
       </div>
     </div>
   );

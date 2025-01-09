@@ -9,6 +9,8 @@ import {
   getRandomMeal,
 } from "../../repository/meals.repository";
 import { getNameMealList } from "../../utils";
+import { Button } from "../atoms/Button";
+import { Input } from "../atoms/Input";
 
 export const SearchMeal = () => {
   const [proposedMeal, setProposedMeal] = useState<MealType | null>(null);
@@ -64,14 +66,13 @@ export const SearchMeal = () => {
   return (
     <div className="w-full h-full min-w-[310px] max-w-[500px] p-4 flex flex-col gap-8 items-center justify-center">
       <div className="relative w-full flex gap-2 items-center justify-center">
-        <input
+        <Input
           type="text"
           value={querySearch}
           onChange={onSearchMeal}
           placeholder={`${
             proposedMeal ? proposedMeal.strMeal : "Write a meal name"
           }`}
-          className="input"
         />
         <button className="size-6" onClick={() => navigate(querySearch)}>
           <MagnifyingGlassIcon />
@@ -114,12 +115,12 @@ export const SearchMeal = () => {
             )}
             {!proposedMeal.strMealThumb && <PhotoIcon />}
           </div>
-          <button
+          <Button
             onClick={() => navigate(`${proposedMeal.strMeal}`)}
-            className="btn-meal"
+            _variant="meal"
           >
             Get recipe
-          </button>
+          </Button>
         </section>
       )}
     </div>

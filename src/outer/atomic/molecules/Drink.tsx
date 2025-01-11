@@ -114,7 +114,7 @@ export const Drink = () => {
         <div className="w-full flex flex-col items-center justify-evenly gap-10 md:flex-row">
           <Button
             onClick={() => {
-              navigate("search-meal");
+              navigate("/search-meal");
             }}
             _variant="meal"
           >
@@ -122,7 +122,7 @@ export const Drink = () => {
           </Button>
           <Button
             onClick={() => {
-              navigate("search-drink");
+              navigate("/search-drink");
             }}
             _variant="drink"
           >

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Ingredient, MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
 import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { getMealByName } from "../../repository/meals.repository";
 import { getIngredientsFromMeal } from "../../utils";
+
+import { Button } from "../atoms/Button";
 
 export const Meal = () => {
   const [currentMeal, setCurrentMeal] = useState<MealType | null>(null);
@@ -12,6 +14,8 @@ export const Meal = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { meal } = useParams<string>();
+
+  const navigate = useNavigate();
 
   // UseEffects
   useEffect(() => {
@@ -43,8 +47,8 @@ export const Meal = () => {
 
   return (
     <div className="w-dvw max-w-[800px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
+      {isLoading && <p>Loading {meal} ...</p>}
       {!currentMeal && !isLoading && <p>Not found {meal} </p>}
-      {!currentMeal && isLoading && <p>Loading {meal} ...</p>}
       {currentMeal && !isLoading && (
         <>
           <header className="w-full flex flex-col gap-4 items-center justify-center sm:flex-row md:justify-between md:gap-none overflow-hidden">
@@ -104,6 +108,26 @@ export const Meal = () => {
             </section>
           </main>
         </>
+      )}
+      {!isLoading && (
+        <div className="w-full flex flex-col items-center justify-evenly gap-10 md:flex-row">
+          <Button
+            onClick={() => {
+              navigate("/search-meal");
+            }}
+            _variant="meal"
+          >
+            More meals
+          </Button>
+          <Button
+            onClick={() => {
+              navigate("/search-drink");
+            }}
+            _variant="drink"
+          >
+            More drinks
+          </Button>
+        </div>
       )}
     </div>
   );

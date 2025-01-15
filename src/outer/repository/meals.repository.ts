@@ -42,3 +42,15 @@ export const getMealsByFirstLetter = async (
     console.error({ error });
   }
 };
+
+export const getCategoriesMeal = async () => {
+  try {
+    const response = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
+    );
+    const data = await response.json();
+    return data["meals"];
+  } catch (error) {
+    console.error({ error });
+  }
+};

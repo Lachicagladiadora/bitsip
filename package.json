@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
-    "caniuse-lite": "^1.0.30001690",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0"

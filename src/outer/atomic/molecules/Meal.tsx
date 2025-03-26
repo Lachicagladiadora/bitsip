@@ -68,9 +68,19 @@ export const Meal = () => {
               </div>
             </div>
             {/* Title */}
-            <h2 className="font-WindSong text-xl text-center font-bold sm:w-52 md:w-80 md:text-2xl lg:text-3xl">
-              {currentMeal.strMeal}
-            </h2>
+            <div className="flex flex-col items-center justify-center sm:w-52 md:w-80 md:text-2xl lg:text-3xl">
+              <h2 className="font-Grandstander text-2xl text-center font-bold">
+                {currentMeal.strMeal}{" "}
+                <span className="text-neutral-400">
+                  ({currentMeal.strArea})
+                </span>
+              </h2>
+              {currentMeal.strYoutube && (
+                <a href={currentMeal.strYoutube} target="_blank">
+                  video tutorial
+                </a>
+              )}
+            </div>
           </header>
           <main className="w-full flex flex-col gap-4">
             {/* Ingredients */}

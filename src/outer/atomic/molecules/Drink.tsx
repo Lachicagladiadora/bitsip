@@ -54,9 +54,12 @@ export const Drink = () => {
         <>
           <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
             {/* Title */}
-            <h2 className="flex-1 font-WindSong text-xl text-center font-bold md:text-2xl lg:text-3xl">
-              {currentDrink.strDrink}
+            <h2 className="flex-1 font-Grandstander text-xl text-center font-bold md:text-2xl lg:text-3xl">
+              {currentDrink.strDrink} <span>({currentDrink.strCategory})</span>
             </h2>
+            {currentDrink.strVideo && (
+              <a href={currentDrink.strVideo}>video tutorial</a>
+            )}
           </header>
           <main className="w-full flex flex-col items-center justify-center gap-4">
             {/* Ingredients */}

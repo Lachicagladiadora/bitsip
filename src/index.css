@@ -7,3 +7,31 @@
   margin: 0px;
   box-sizing: border-box;
 }
+
+body::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #d8d8d8; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #7e7979; /* color of the scroll thumb */
+  border-radius: 6px; /* roundness of the scroll thumb */
+  border: 1px solid #d8d8d8;
+}
+
+.scroll-ul::-webkit-scrollbar {
+  width: 6px; /* width of the entire scrollbar */
+}
+
+.scroll-ul::-webkit-scrollbar-track {
+  background: #d8d8d8; /* color of the tracking area */
+}
+
+.scroll-ul::-webkit-scrollbar-thumb {
+  background-color: #7e7979; /* color of the scroll thumb */
+  border-radius: 6px; /* roundness of the scroll thumb */
+  border: 1px solid #d8d8d8;
+}

@@ -6,7 +6,7 @@ export const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-full p-7 max-w-[600px] flex flex-col gap-10 items-center justify-center">
+    <div className="w-full h-full p-7 max-w-[900px] flex flex-col gap-10 items-center justify-center">
       <p className="font-[900] text-3xl text-center md:text-4xl">
         Do you need to prepare a{" "}
         <span className="uppercase text-orange">meal</span> or prepare a{" "}

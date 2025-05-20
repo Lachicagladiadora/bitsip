@@ -11,7 +11,7 @@ import { Button } from "../atoms/Button";
 export const Meal = () => {
   const [currentMeal, setCurrentMeal] = useState<MealType | null>(null);
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { meal } = useParams<string>();
 
@@ -46,9 +46,9 @@ export const Meal = () => {
   }, [currentMeal]);
 
   return (
-    <div className="w-dvw max-w-[800px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
-      {isLoading && <p>Loading {meal} ...</p>}
-      {!currentMeal && !isLoading && <p>Not found {meal} </p>}
+    <div className="w-dvw max-w-[900px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
+      {isLoading && <p>Loading "{meal}" ...</p>}
+      {!currentMeal && !isLoading && <p>Not found "{meal}"" </p>}
       {currentMeal && !isLoading && (
         <>
           <header className="w-full flex flex-col gap-4 items-center justify-center sm:flex-row md:justify-between md:gap-none overflow-hidden">

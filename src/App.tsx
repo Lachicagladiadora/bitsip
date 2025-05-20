@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import { Header } from "./outer/atomic/molecules/Header";
-import { Home } from "./outer/atomic/molecules/Home";
+import { Home } from "./outer/atomic/organisms/Home";
 import { SearchMeal } from "./outer/atomic/organisms/SearchMeal";
 import { SearchDrink } from "./outer/atomic/organisms/SearchDrink";
 import { Meal } from "./outer/atomic/organisms/Meal";

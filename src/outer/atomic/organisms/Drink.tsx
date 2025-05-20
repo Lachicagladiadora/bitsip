@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 import { RESPONSE_DRINK } from "../../../inner/constants";
 import { DrinkType, Ingredient } from "../../../inner/types";
 import { getDrinkByName } from "../../repository/drinks.repository";
@@ -12,7 +12,7 @@ import { Button } from "../atoms/Button";
 export const Drink = () => {
   const [currentDrink, setCurrentDrink] = useState<DrinkType | null>(null);
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { drink } = useParams<string>();
 
@@ -47,9 +47,9 @@ export const Drink = () => {
   }, [currentDrink]);
 
   return (
-    <div className="w-dvw max-w-[800px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
-      {isLoading && <p>Loading {drink} ...</p>}
-      {!currentDrink && !isLoading && <p>Not found {drink} recipe</p>}
+    <div className="w-dvw max-w-[900px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
+      {isLoading && <div className="flex-1"> Loading "{drink}"" ...</div>}
+      {!currentDrink && !isLoading && <p>Not found "{drink}" recipe</p>}
       {currentDrink && !isLoading && (
         <>
           <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
@@ -74,8 +74,8 @@ export const Drink = () => {
                 <tbody>
                   <td>
                     {ingredientsList.map((c, i) => (
-                      <tr key={i} className="flex items-center gap-2">
-                        <CheckIcon className="h-4 w-4" />
+                      <tr key={i} className="flex items-center gap-2 list-disc">
+                        {/* <CheckIcon className="h-4 w-4" /> */}
                         {c.strIngredient}
                       </tr>
                     ))}

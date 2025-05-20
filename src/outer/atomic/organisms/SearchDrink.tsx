@@ -1,10 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ChevronLeftIcon,
-  MagnifyingGlassIcon,
-  PhotoIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 
 import { DrinkType } from "../../../inner/types";
 import { RESPONSE_DRINK } from "../../../inner/constants";
@@ -14,7 +10,7 @@ import {
 } from "../../repository/drinks.repository";
 import { getNameDrinkList } from "../../utils";
 import { Button } from "../atoms/Button";
-import { Input } from "../atoms/Input";
+import { Searcher } from "../molecules/Searcher";
 
 export const SearchDrink = () => {
   const [proposedDrink, setProposedDrink] = useState<DrinkType | null>(null);
@@ -75,33 +71,26 @@ export const SearchDrink = () => {
       >
         <ChevronLeftIcon />
       </button>
-      <div className="relative w-full h-full min-w-[310px] max-w-[500px] p-4 flex flex-col gap-8 items-center justify-center">
-        <div className="relative w-full flex gap-2 items-center justify-center">
-          <Input
-            type="text"
-            value={querySearch}
-            onChange={onSearchDrink}
-            placeholder={`${
-              proposedDrink ? proposedDrink.strDrink : "Write a drink name"
-            }`}
-          />
-          <button className="size-6" onClick={() => navigate(querySearch)}>
-            <MagnifyingGlassIcon />
-          </button>
+      <div className="relative w-full h-full min-w-[300px] max-w-[900px] p-4 flex flex-col gap-8 items-center justify-center">
+        <Searcher
+          querySearch={querySearch}
+          onChangeQuery={onSearchDrink}
+          proposal={proposedDrink?.strDrink ?? ""}
+        >
           {querySearch && (
-            <ul className="absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
-              {filteredDrinks.length === 0 && !isLoading && <p>Not found</p>}
+            <ul className="scroll-ul absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
               {isLoading && (
                 <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
                   Loading...
                 </p>
               )}
+              {!isLoading && filteredDrinks.length === 0 && <p>Not found</p>}
               {filteredDrinks &&
                 !isLoading &&
                 filteredDrinks.map((c, i) => (
                   <li
                     key={i}
-                    className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray line-clamp-1"
+                    className="last:rounded-b-xl hover:bg-aquamarine line-clamp-1"
                   >
                     <button
                       className="w-full p-4 text-justify  overflow-hidden"
@@ -113,17 +102,24 @@ export const SearchDrink = () => {
                 ))}
             </ul>
           )}
-        </div>
+        </Searcher>
         {!proposedDrink && <p>I'm forgot the recipe</p>}
         {proposedDrink && (
-          <section className="w-full flex flex-col items-center justify-center gap-8">
-            <div className="size-full rounded-lg overflow-hidden">
-              {proposedDrink.strDrinkThumb && (
+          <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
+            <div
+              className="w-full flex-1 rounded-lg"
+              style={{
+                backgroundImage: `url(${proposedDrink.strDrinkThumb})`,
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+              }}
+            >
+              {/* {proposedDrink.strDrinkThumb && (
                 <img
                   src={proposedDrink.strDrinkThumb}
                   alt={proposedDrink.strDrink ?? "Drink image"}
                 />
-              )}
+              )} */}
               {!proposedDrink.strDrinkThumb && <PhotoIcon />}
             </div>
             <Button

@@ -29,7 +29,7 @@ export const Meal = () => {
       newMeal(meal ?? "");
       setIsLoading(false);
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
       setIsLoading(false);
     }
   }, [meal]);

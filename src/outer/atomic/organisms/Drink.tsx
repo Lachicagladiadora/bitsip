@@ -42,7 +42,7 @@ export const Drink = () => {
       const ingredients = getIngredientsFromDrink(currentDrink) ?? [];
       setIngredientsList(ingredients);
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
     }
   }, [currentDrink]);
 

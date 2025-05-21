@@ -30,7 +30,10 @@ export const Searcher = ({
         onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeQuery(e)}
         placeholder={`${proposal ?? "Write a name"}`}
       />
-      <button className="size-6" onClick={() => navigate(querySearch)}>
+      <button
+        className="size-6 md:size-10"
+        onClick={() => navigate(querySearch)}
+      >
         <MagnifyingGlassIcon />
       </button>
       {querySearch && (

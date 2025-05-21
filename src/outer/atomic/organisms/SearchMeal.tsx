@@ -75,36 +75,11 @@ export const SearchMeal = () => {
         <Searcher
           querySearch={querySearch}
           proposal={proposedMeal?.strMeal ?? ""}
+          type="meal"
+          isLoading={isLoading}
+          autocompleteList={filteredMeals}
           onChangeQuery={onSearchMeal}
-        >
-          <>
-            {querySearch && (
-              <ul className="scroll-ul absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
-                {isLoading && (
-                  <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
-                    Loading...
-                  </p>
-                )}
-                {!isLoading && filteredMeals.length === 0 && <p>Not found</p>}
-                {filteredMeals &&
-                  !isLoading &&
-                  filteredMeals.map((c, i) => (
-                    <li
-                      key={i}
-                      className="last:rounded-b-xl hover:bg-orange line-clamp-1"
-                    >
-                      <button
-                        className="w-full p-4 text-justify  overflow-hidden"
-                        onClick={() => navigate(c)}
-                      >
-                        {c}
-                      </button>
-                    </li>
-                  ))}
-              </ul>
-            )}
-          </>
-        </Searcher>
+        />
         {!proposedMeal && <p>I'm forgot the recipe</p>}
         {proposedMeal && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
@@ -116,13 +91,6 @@ export const SearchMeal = () => {
                 backgroundPosition: "center",
               }}
             >
-              {/* {proposedMeal.strMealThumb && (
-                <img
-                  className="object-cover"
-                  src={proposedMeal.strMealThumb}
-                  alt={proposedMeal.strMeal ?? "Meal image"}
-                />
-              )} */}
               {!proposedMeal.strMealThumb && <PhotoIcon />}
             </div>
             <Button

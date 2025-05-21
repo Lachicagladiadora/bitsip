@@ -74,35 +74,12 @@ export const SearchDrink = () => {
       <div className="relative w-full h-full min-w-[300px] max-w-[900px] p-4 flex flex-col gap-8 items-center justify-center">
         <Searcher
           querySearch={querySearch}
-          onChangeQuery={onSearchDrink}
           proposal={proposedDrink?.strDrink ?? ""}
-        >
-          {querySearch && (
-            <ul className="scroll-ul absolute top-[100%] left-[6px] max-h-[480px] w-[88%] sm:w-[90%] md:w-[91%] rounded-b-xl overflow-auto bg-blank/80 dark:bg-obscure/80 text-lg">
-              {isLoading && (
-                <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
-                  Loading...
-                </p>
-              )}
-              {!isLoading && filteredDrinks.length === 0 && <p>Not found</p>}
-              {filteredDrinks &&
-                !isLoading &&
-                filteredDrinks.map((c, i) => (
-                  <li
-                    key={i}
-                    className="last:rounded-b-xl hover:bg-aquamarine line-clamp-1"
-                  >
-                    <button
-                      className="w-full p-4 text-justify  overflow-hidden"
-                      onClick={() => navigate(c)}
-                    >
-                      {c}
-                    </button>
-                  </li>
-                ))}
-            </ul>
-          )}
-        </Searcher>
+          type="drink"
+          isLoading={isLoading}
+          autocompleteList={filteredDrinks}
+          onChangeQuery={onSearchDrink}
+        />
         {!proposedDrink && <p>I'm forgot the recipe</p>}
         {proposedDrink && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
@@ -114,12 +91,6 @@ export const SearchDrink = () => {
                 backgroundPosition: "center",
               }}
             >
-              {/* {proposedDrink.strDrinkThumb && (
-                <img
-                  src={proposedDrink.strDrinkThumb}
-                  alt={proposedDrink.strDrink ?? "Drink image"}
-                />
-              )} */}
               {!proposedDrink.strDrinkThumb && <PhotoIcon />}
             </div>
             <Button

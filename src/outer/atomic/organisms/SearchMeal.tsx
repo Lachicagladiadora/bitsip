@@ -6,6 +6,7 @@ import { MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
 import {
   getMealsByFirstLetter,
+  // getMealsByMainIngredient,
   getRandomMeal,
 } from "../../repository/meals.repository";
 import { getNameMealList } from "../../utils";
@@ -33,7 +34,11 @@ export const SearchMeal = () => {
         return;
       }
       if (queryCurrent.length === 1) {
+        // #region todo: search by
         const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
+        // const data = (await getMealsByMainIngredient(queryCurrent)) ?? [];
+        // const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
+        // const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
         const dataList = getNameMealList(data) ?? [];
         setFilteredMeals(dataList);
         setMeals(dataList);

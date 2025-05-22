@@ -2,14 +2,15 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 
-import { MealType } from "../../../inner/types";
+import { MealCategory, MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
 import {
+  getMealCategories,
   getMealsByFirstLetter,
   // getMealsByMainIngredient,
   getRandomMeal,
 } from "../../repository/meals.repository";
-import { getNameMealList } from "../../utils";
+import { getMealCategoryList, getNameMealList } from "../../utils";
 import { Button } from "../atoms/Button";
 import { Searcher } from "../molecules/Searcher";
 
@@ -27,6 +28,11 @@ export const SearchMeal = () => {
       setIsLoading(true);
       const queryCurrent = e.target.value;
       setQuerySearch(queryCurrent);
+      // #region todo: categories filter
+      const allCategories = await getMealCategories();
+      console.log({ allCategories });
+      // const catList = await getMealCategoryList(allCategories["categories"]);
+      // console.log({ catList });
       if (queryCurrent.length === 0) {
         setMeals([]);
         setFilteredMeals([]);

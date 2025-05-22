@@ -4,6 +4,8 @@ import {
   KeyDrinkTypeIngredient,
   MealType,
   DrinkType,
+  Category,
+  MealCategory,
 } from "../inner/types";
 
 // region INGREDIENTS
@@ -97,6 +99,25 @@ export const getNameDrinkList = (
       const name = c["strDrink"];
       if (!name) return;
       newList.push(name);
+    });
+    return newList;
+  } catch (error) {
+    console.error({ error });
+  }
+};
+
+export const getMealCategoryList = (
+  objectList: MealCategory[]
+): Category[] | undefined => {
+  try {
+    const newList: Category[] = [];
+    objectList.forEach((c) => {
+      const label = c["strCategory"];
+      const img = c["strCategoryThumb"];
+      const description = c["strCategoryDescription"];
+      if (!label || !img || !description)
+        throw Error("Do not exist this category");
+      [...newList, { label, img, description }];
     });
     return newList;
   } catch (error) {

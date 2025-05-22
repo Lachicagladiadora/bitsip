@@ -86,3 +86,17 @@ export const getMealsByArea = async (
     console.error({ error });
   }
 };
+
+// get categories
+// https://www.themealdb.com/api/json/v1/1/categories.php
+export const getMealCategories = async (): Promise<MealType[] | undefined> => {
+  try {
+    const response = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/categories.php"
+    );
+    const data = await response.json();
+    return data["categories"];
+  } catch (error) {
+    console.error({ error });
+  }
+};

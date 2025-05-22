@@ -197,3 +197,15 @@ export type KeyDrinkTypeIngredient =
   | "strMeasure13"
   | "strMeasure14"
   | "strMeasure15";
+
+export type MealCategory = {
+  idCategory: string;
+  strCategory: string;
+  strCategoryThumb: string;
+  strCategoryDescription: string;
+};
+export type Category = {
+  label: string;
+  img: string;
+  description: string;
+};

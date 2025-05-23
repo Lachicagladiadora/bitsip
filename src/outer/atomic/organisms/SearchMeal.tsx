@@ -2,15 +2,14 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 
-import { MealCategory, MealType } from "../../../inner/types";
+import { MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
 import {
-  getMealCategories,
   getMealsByFirstLetter,
   // getMealsByMainIngredient,
   getRandomMeal,
 } from "../../repository/meals.repository";
-import { getMealCategoryList, getNameMealList } from "../../utils";
+import { getNameMealList } from "../../utils";
 import { Button } from "../atoms/Button";
 import { Searcher } from "../molecules/Searcher";
 
@@ -20,6 +19,7 @@ export const SearchMeal = () => {
   const [meals, setMeals] = useState<string[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<string[]>(meals);
   const [isLoading, setIsLoading] = useState(false);
+  // const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
@@ -28,11 +28,7 @@ export const SearchMeal = () => {
       setIsLoading(true);
       const queryCurrent = e.target.value;
       setQuerySearch(queryCurrent);
-      // #region todo: categories filter
-      const allCategories = await getMealCategories();
-      console.log({ allCategories });
-      // const catList = await getMealCategoryList(allCategories["categories"]);
-      // console.log({ catList });
+
       if (queryCurrent.length === 0) {
         setMeals([]);
         setFilteredMeals([]);
@@ -40,20 +36,18 @@ export const SearchMeal = () => {
         return;
       }
       if (queryCurrent.length === 1) {
-        // #region todo: search by
         const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
-        // const data = (await getMealsByMainIngredient(queryCurrent)) ?? [];
-        // const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
-        // const data = (await getMealsByFirstLetter(queryCurrent)) ?? [];
         const dataList = getNameMealList(data) ?? [];
         setFilteredMeals(dataList);
         setMeals(dataList);
         setIsLoading(false);
         return;
       }
+
       const newList = meals.filter((c) =>
         c.toLowerCase().includes(queryCurrent.toLowerCase())
       );
+
       setFilteredMeals(newList);
       setIsLoading(false);
     } catch (error) {
@@ -61,6 +55,15 @@ export const SearchMeal = () => {
       setIsLoading(false);
     }
   };
+
+  // const getAllCategorires = async () => {
+  //   // #region todo: categories filter
+  //   const allCategories = (await getMealCategories()) ?? [];
+  //   console.log({ allCategories });
+  //   setCategories(allCategories);
+  //   const catList = getMealCategoryList(allCategories);
+  // };
+  // console.log({ categories });
 
   useEffect(() => {
     try {
@@ -73,6 +76,10 @@ export const SearchMeal = () => {
       console.error({ error });
     }
   }, []);
+
+  // useEffect(() => {
+  //   getAllCategorires();
+  // }, []);
 
   return (
     <>

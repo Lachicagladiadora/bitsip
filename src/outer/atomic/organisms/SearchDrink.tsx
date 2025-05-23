@@ -8,7 +8,7 @@ import {
   getDrinksByFirstLetter,
   getRandomDrink,
 } from "../../repository/drinks.repository";
-import { getMealCategoryList } from "../../utils";
+import { getNameDrinkList } from "../../utils";
 import { Button } from "../atoms/Button";
 import { Searcher } from "../molecules/Searcher";
 
@@ -34,7 +34,8 @@ export const SearchDrink = () => {
       }
       if (queryCurrent.length === 1) {
         const data = (await getDrinksByFirstLetter(queryCurrent)) ?? [];
-        const dataList = getMealCategoryList(data) ?? [];
+        const dataList = getNameDrinkList(data) ?? [];
+        console.log({ data, dataList });
         setFilteredDrinks(dataList);
         setDrinks(dataList);
         setIsLoading(false);

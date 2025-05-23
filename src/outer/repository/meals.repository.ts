@@ -1,4 +1,4 @@
-import { MealType } from "../../inner/types";
+import { MealCategory, MealType } from "../../inner/types";
 
 // #region RECIPES
 export const getRandomMeal = async (): Promise<MealType | undefined> => {
@@ -60,7 +60,7 @@ export const getMealsByMainIngredient = async (
 // category
 export const getMealsByCategory = async (
   category: string
-): Promise<MealType[] | undefined> => {
+): Promise<[] | undefined> => {
   try {
     const response = await fetch(
       `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
@@ -89,7 +89,9 @@ export const getMealsByArea = async (
 
 // get categories
 // https://www.themealdb.com/api/json/v1/1/categories.php
-export const getMealCategories = async (): Promise<MealType[] | undefined> => {
+export const getMealCategories = async (): Promise<
+  MealCategory[] | undefined
+> => {
   try {
     const response = await fetch(
       "https://www.themealdb.com/api/json/v1/1/categories.php"

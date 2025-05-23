@@ -23,10 +23,11 @@ export const Searcher = ({
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full grid gap-2 items-center grid-cols-[1fr_auto]">
+    <div className="relative w-full flex items-center gap-2">
       <Input
         type="text"
         value={querySearch}
+        className="flex-1"
         onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeQuery(e)}
         placeholder={`${proposal ?? "Write a name"}`}
       />
@@ -37,7 +38,7 @@ export const Searcher = ({
         <MagnifyingGlassIcon />
       </button>
       {querySearch && (
-        <ul className="scroll-ul absolute top-[100%]  w-full max-h-[480px] col-span-2 rounded-xl overflow-auto truncate line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
+        <ul className="scroll-ul absolute top-[100%] w-full max-h-[500px] rounded-xl overflow-y-auto line-clamp-1 bg-blank/80 dark:bg-obscure/80 text-lg">
           {isLoading && (
             <p className="last:rounded-b-xl hover:bg-grayBlank dark:hover:bg-gray">
               Loading...

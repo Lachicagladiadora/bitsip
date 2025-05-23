@@ -1,4 +1,4 @@
-import {, MealType } from "../../inner/types";
+import { MealType } from "../../inner/types";
 
 // #region RECIPES
 export const getRandomMeal = async (): Promise<MealType | undefined> => {

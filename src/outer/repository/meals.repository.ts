@@ -1,4 +1,4 @@
-import { MealCategory, MealType } from "../../inner/types";
+import {, MealType } from "../../inner/types";
 
 // #region RECIPES
 export const getRandomMeal = async (): Promise<MealType | undefined> => {
@@ -43,62 +43,61 @@ export const getMealsByFirstLetter = async (
   }
 };
 
-// main ingredient
-export const getMealsByMainIngredient = async (
-  ingredient: string
-): Promise<MealType[] | undefined> => {
-  try {
-    const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
-    );
-    const data = await response.json();
-    return data["meals"];
-  } catch (error) {
-    console.error({ error });
-  }
-};
-// category
-export const getMealsByCategory = async (
-  category: string
-): Promise<[] | undefined> => {
-  try {
-    const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
-    );
-    const data = await response.json();
-    return data["meals"];
-  } catch (error) {
-    console.error({ error });
-  }
-};
+// // main ingredient
+// export const getMealsByMainIngredient = async (
+//   ingredient: string
+// ): Promise<MealType[] | undefined> => {
+//   try {
+//     const response = await fetch(
+//       `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+//     );
+//     const data = await response.json();
+//     return data["meals"];
+//   } catch (error) {
+//     console.error({ error });
+//   }
+// };
+// // category
+// export const getMealsByCategory = async (
+//   category: string
+// ): Promise<[] | undefined> => {
+//   try {
+//     const response = await fetch(
+//       `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+//     );
+//     const data = await response.json();
+//     return data["meals"];
+//   } catch (error) {
+//     console.error({ error });
+//   }
+// };
 
-// area
-export const getMealsByArea = async (
-  area: string
-): Promise<MealType[] | undefined> => {
-  try {
-    const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`
-    );
-    const data = await response.json();
-    return data["meals"];
-  } catch (error) {
-    console.error({ error });
-  }
-};
+// // area
+// export const getMealsByArea = async (
+//   area: string
+// ): Promise<MealType[] | undefined> => {
+//   try {
+//     const response = await fetch(
+//       `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`
+//     );
+//     const data = await response.json();
+//     return data["meals"];
+//   } catch (error) {
+//     console.error({ error });
+//   }
+// };
 
-// get categories
-// https://www.themealdb.com/api/json/v1/1/categories.php
-export const getMealCategories = async (): Promise<
-  MealCategory[] | undefined
-> => {
-  try {
-    const response = await fetch(
-      "https://www.themealdb.com/api/json/v1/1/categories.php"
-    );
-    const data = await response.json();
-    return data["categories"];
-  } catch (error) {
-    console.error({ error });
-  }
-};
+// // get categories
+// export const getMealCategories = async (): Promise<
+//   MealCategory[] | undefined
+// > => {
+//   try {
+//     const response = await fetch(
+//       "https://www.themealdb.com/api/json/v1/1/categories.php"
+//     );
+//     const data = await response.json();
+//     return data["categories"];
+//   } catch (error) {
+//     console.error({ error });
+//   }
+// };

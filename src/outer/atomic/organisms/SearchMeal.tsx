@@ -6,7 +6,6 @@ import { MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
 import {
   getMealsByFirstLetter,
-  // getMealsByMainIngredient,
   getRandomMeal,
 } from "../../repository/meals.repository";
 import { getNameMealList } from "../../utils";
@@ -19,7 +18,6 @@ export const SearchMeal = () => {
   const [meals, setMeals] = useState<string[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<string[]>(meals);
   const [isLoading, setIsLoading] = useState(false);
-  // const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
@@ -56,15 +54,6 @@ export const SearchMeal = () => {
     }
   };
 
-  // const getAllCategorires = async () => {
-  //   // #region todo: categories filter
-  //   const allCategories = (await getMealCategories()) ?? [];
-  //   console.log({ allCategories });
-  //   setCategories(allCategories);
-  //   const catList = getMealCategoryList(allCategories);
-  // };
-  // console.log({ categories });
-
   useEffect(() => {
     try {
       const randomMeal = async () => {
@@ -76,10 +65,6 @@ export const SearchMeal = () => {
       console.error({ error });
     }
   }, []);
-
-  // useEffect(() => {
-  //   getAllCategorires();
-  // }, []);
 
   return (
     <>

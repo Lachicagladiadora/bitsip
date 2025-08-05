@@ -88,6 +88,7 @@ export const SearchMeal = () => {
         {proposedMeal && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
             <div
+              onClick={() => navigate(`${proposedMeal.strMeal}`)}
               className="w-full flex-1 rounded-lg"
               style={{
                 backgroundImage: `url(${proposedMeal.strMealThumb})`,

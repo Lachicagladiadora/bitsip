@@ -5,6 +5,7 @@ import { RESPONSE_MEAL } from "../../../inner/constants";
 import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { getMealByName } from "../../repository/meals.repository";
 import { getIngredientsFromMeal } from "../../utils";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "../atoms/Button";
 
@@ -76,8 +77,13 @@ export const Meal = () => {
                 </span>
               </h2>
               {currentMeal.strYoutube && (
-                <a href={currentMeal.strYoutube} target="_blank">
-                  video tutorial
+                <a
+                  href={currentMeal.strYoutube}
+                  target="_blank"
+                  className="text-base flex gap-2 justify-center hover:text-orange"
+                >
+                  video tutorial{" "}
+                  <ArrowTopRightOnSquareIcon className="size-5" />
                 </a>
               )}
             </div>

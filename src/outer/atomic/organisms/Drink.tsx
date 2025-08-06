@@ -6,6 +6,7 @@ import { DrinkType, Ingredient } from "../../../inner/types";
 import { getDrinkByName } from "../../repository/drinks.repository";
 import { getIngredientsFromDrink } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "../atoms/Button";
 
@@ -52,13 +53,19 @@ export const Drink = () => {
       {!currentDrink && !isLoading && <p>Not found "{drink}" recipe</p>}
       {currentDrink && !isLoading && (
         <>
-          <header className="w-full flex gap-4 items-center justify-center md:justify-between md:gap-none">
+          <header className="w-full flex flex-col gap-4 items-center justify-center md:justify-between md:gap-none">
             {/* Title */}
             <h2 className="flex-1 font-Grandstander text-xl text-center font-bold md:text-2xl lg:text-3xl">
               {currentDrink.strDrink} <span>({currentDrink.strCategory})</span>
             </h2>
             {currentDrink.strVideo && (
-              <a href={currentDrink.strVideo}>video tutorial</a>
+              <a
+                href={currentDrink.strVideo}
+                className="text-base flex gap-2 justify-center hover:text-aquamarine"
+              >
+                video tutorial
+                <ArrowTopRightOnSquareIcon className="size-5" />
+              </a>
             )}
           </header>
           <main className="w-full flex flex-col items-center justify-center gap-4">

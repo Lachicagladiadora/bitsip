@@ -88,25 +88,9 @@ export const SearchDrink = () => {
         {!proposedDrink && !isLoading && <p>I'm forgot the recipe</p>}
         {isLoading && !proposedDrink && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8 bg-neutral-300">
-            <div
-              // onClick={() => navigate(`${proposedDrink.strDrink}`)}
-              className="w-full flex-1 rounded-lg animate-pulse bg-neutral-300 flex items-center justify-center"
-              // style={{
-              //   backgroundImage: `url(${proposedDrink.strDrinkThumb})`,
-              //   backgroundSize: "contain",
-              //   backgroundPosition: "center",
-              // }}
-            >
-              {/* {!proposedDrink.strDrinkThumb && <PhotoIcon />} */}
+            <div className="w-full flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center">
               <ArrowPathIcon className="animate-spin size-10" />
             </div>
-            {/* <Button
-              // onClick={() => navigate(`${proposedDrink.strDrink}`)}
-              _variant="drink"
-              disabled
-            >
-              Loading recipe
-            </Button> */}
           </section>
         )}
         {proposedDrink && (

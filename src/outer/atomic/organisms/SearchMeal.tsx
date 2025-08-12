@@ -1,6 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  ChevronLeftIcon,
+  PhotoIcon,
+} from "@heroicons/react/24/outline";
 
 import { MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
@@ -85,6 +89,13 @@ export const SearchMeal = () => {
           onChangeQuery={onSearchMeal}
         />
         {!proposedMeal && !isLoading && <p>I'm forgot the recipe</p>}
+        {isLoading && !proposedMeal && (
+          <section className="w-full flex-1 flex flex-col items-center justify-center gap-8 bg-neutral-300">
+            <div className="w-full flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center">
+              <ArrowPathIcon className="animate-spin size-10" />
+            </div>
+          </section>
+        )}
         {proposedMeal && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
             <div

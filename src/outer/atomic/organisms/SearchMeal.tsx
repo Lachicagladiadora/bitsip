@@ -18,7 +18,7 @@ export const SearchMeal = () => {
   const [querySearch, setQuerySearch] = useState("");
   const [meals, setMeals] = useState<string[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<string[]>(meals);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -84,7 +84,7 @@ export const SearchMeal = () => {
           autocompleteList={filteredMeals}
           onChangeQuery={onSearchMeal}
         />
-        {!proposedMeal && <p>I'm forgot the recipe</p>}
+        {!proposedMeal && !isLoading && <p>I'm forgot the recipe</p>}
         {proposedMeal && (
           <section className="w-full flex-1 flex flex-col items-center justify-center gap-8">
             <div

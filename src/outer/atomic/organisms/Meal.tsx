@@ -53,12 +53,12 @@ export const Meal = () => {
   return (
     <div className="w-dvw max-w-[900px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
       {!currentMeal && !isLoading && (
-        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+        <div className="flex-1 rounded-lg animate-pulse bg-grayBlank shadow-sm flex items-center justify-center gap-5 dark:bg-obscure">
           Not found "{meal}""{" "}
         </div>
       )}
       {!currentMeal && isLoading && (
-        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+        <div className="flex-1 rounded-lg animate-pulse bg-grayBlank shadow-sm flex items-center justify-center gap-5 dark:bg-obscure">
           <ArrowPathIcon className="animate-spin size-10" />
           <p>Loading "{meal}" </p>
         </div>

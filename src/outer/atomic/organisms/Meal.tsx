@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Ingredient, MealType } from "../../../inner/types";
 import { RESPONSE_MEAL } from "../../../inner/constants";
-import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  CheckIcon,
+  PhotoIcon,
+} from "@heroicons/react/24/outline";
 import { getMealByName } from "../../repository/meals.repository";
 import { getIngredientsFromMeal } from "../../utils";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
@@ -22,13 +26,13 @@ export const Meal = () => {
   useEffect(() => {
     try {
       setIsLoading(true);
-      const newMeal = async (mealName: string) => {
+      const getCurrentMeal = async (mealName: string) => {
         if (!mealName) setCurrentMeal(RESPONSE_MEAL);
         const recipe = await getMealByName(mealName);
         setCurrentMeal(recipe ?? null);
+        setIsLoading(false);
       };
-      newMeal(meal ?? "");
-      setIsLoading(false);
+      getCurrentMeal(meal ?? "");
     } catch (error) {
       console.error({ error });
       setIsLoading(false);
@@ -48,8 +52,17 @@ export const Meal = () => {
 
   return (
     <div className="w-dvw max-w-[900px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
-      {isLoading && <p>Loading "{meal}" ...</p>}
-      {!currentMeal && !isLoading && <p>Not found "{meal}"" </p>}
+      {!currentMeal && !isLoading && (
+        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+          Not found "{meal}""{" "}
+        </div>
+      )}
+      {!currentMeal && isLoading && (
+        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+          <ArrowPathIcon className="animate-spin size-10" />
+          <p>Loading "{meal}" </p>
+        </div>
+      )}
       {currentMeal && !isLoading && (
         <>
           <header className="w-full flex flex-col gap-4 items-center justify-center sm:flex-row md:justify-between md:gap-none overflow-hidden">

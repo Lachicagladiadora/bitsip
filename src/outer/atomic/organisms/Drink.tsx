@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { RESPONSE_DRINK } from "../../../inner/constants";
 import { DrinkType, Ingredient } from "../../../inner/types";
 import { getDrinkByName } from "../../repository/drinks.repository";
@@ -23,13 +23,13 @@ export const Drink = () => {
   useEffect(() => {
     try {
       setIsLoading(true);
-      const newDrink = async (drinkName: string) => {
+      const getCurrentDrink = async (drinkName: string) => {
         if (!drinkName) setCurrentDrink(RESPONSE_DRINK);
         const recipe = await getDrinkByName(drinkName);
         setCurrentDrink(recipe ?? null);
+        setIsLoading(false);
       };
-      newDrink(drink ?? "");
-      setIsLoading(false);
+      getCurrentDrink(drink ?? "");
     } catch (error) {
       console.error({ error });
       setIsLoading(false);
@@ -49,8 +49,17 @@ export const Drink = () => {
 
   return (
     <div className="w-dvw max-w-[900px] min-w-[300px] p-4 flex flex-col items-center justify-center gap-6">
-      {isLoading && <div className="flex-1"> Loading "{drink}"" ...</div>}
-      {!currentDrink && !isLoading && <p>Not found "{drink}" recipe</p>}
+      {!currentDrink && !isLoading && (
+        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+          Not found "{drink}""{" "}
+        </div>
+      )}
+      {!currentDrink && isLoading && (
+        <div className="flex-1 rounded-lg animate-pulse bg-neutral-200 shadow-sm flex items-center justify-center gap-5">
+          <ArrowPathIcon className="animate-spin size-10" />
+          <p>Loading "{drink}" </p>
+        </div>
+      )}
       {currentDrink && !isLoading && (
         <>
           <header className="w-full flex flex-col gap-4 items-center justify-center md:justify-between md:gap-none">

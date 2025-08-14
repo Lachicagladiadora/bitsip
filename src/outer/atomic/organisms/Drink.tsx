@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ArrowPathIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  CheckIcon,
+  PhotoIcon,
+} from "@heroicons/react/24/outline";
 import { RESPONSE_DRINK } from "../../../inner/constants";
 import { DrinkType, Ingredient } from "../../../inner/types";
 import { getDrinkByName } from "../../repository/drinks.repository";
@@ -88,19 +92,15 @@ export const Drink = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <td>
-                    {ingredientsList.map((c, i) => (
-                      <tr key={i} className="flex items-center gap-2 list-disc">
-                        {/* <CheckIcon className="h-4 w-4" /> */}
+                  {ingredientsList.map((c, i) => (
+                    <tr key={i}>
+                      <td className="flex items-center gap-2">
+                        <CheckIcon className="h-4 w-4" />
                         {c.strIngredient}
-                      </tr>
-                    ))}
-                  </td>
-                  <td>
-                    {ingredientsList.map((c, i) => (
-                      <tr key={i}>{c.strMeasure}</tr>
-                    ))}
-                  </td>
+                      </td>
+                      <td>{c.strMeasure}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             )}

@@ -112,19 +112,15 @@ export const Meal = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <td>
-                    {ingredientsList.map((c, i) => (
-                      <tr key={i} className="flex items-center gap-2">
+                  {ingredientsList.map((c, i) => (
+                    <tr key={i}>
+                      <td className="flex items-center gap-2">
                         <CheckIcon className="h-4 w-4" />
                         {c.strIngredient}
-                      </tr>
-                    ))}
-                  </td>
-                  <td>
-                    {ingredientsList.map((c, i) => (
-                      <tr key={i}>{c.strMeasure}</tr>
-                    ))}
-                  </td>
+                      </td>
+                      <td>{c.strMeasure}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             )}

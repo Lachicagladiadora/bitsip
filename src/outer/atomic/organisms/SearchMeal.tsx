@@ -15,7 +15,6 @@ import {
 import { getNameMealList } from "../../utils";
 import { Button } from "../atoms/Button";
 import { Searcher } from "../molecules/Searcher";
-// import { Searcher } from "../molecules/Searcher";
 
 export const SearchMeal = () => {
   const [proposedMeal, setProposedMeal] = useState<MealType | null>(null);

@@ -20,7 +20,6 @@ export default {
         grayBlank: "#D8D8D8",
       },
       fontFamily: {
-        // vibes: ['vibes']
         WindSong: ['WindSong'],
         Grandstander: ['Grandstander']
       }
